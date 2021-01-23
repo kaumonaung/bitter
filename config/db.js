@@ -7,7 +7,7 @@ const connectDB = async () => {
       process.env.MONGO_URI,
       { useNewUrlParser: true, useUnifiedTopology: true },
       () => {
-        console.log('Databse connected');
+        console.log('Database connected');
       }
     );
   } catch (err) {
