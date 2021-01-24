@@ -56,9 +56,9 @@ router.post('/', auth, async (req, res) => {
 
     // Create new post object
     const newPost = new Post({
+      user: req.user.id,
       text: req.body.text,
       name: user.name,
-      user: req.user.id,
     });
 
     // Save new post
@@ -137,7 +137,7 @@ router.put('/like/:post_id', auth, async (req, res) => {
 });
 
 // @route       PUT api/posts/unlike/:post_id
-// @desc        Dislike/Unlike post
+// @desc        Dislike / Unlike post
 // @access      Private
 router.put('/unlike/:post_id', auth, async (req, res) => {
   try {

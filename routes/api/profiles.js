@@ -1,8 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../../middleware/auth');
+const mongoose = require('mongoose');
 const { validateProfile } = require('../validation');
 
+const Post = require('../../models/Post');
 const Profile = require('../../models/Profile');
 const User = require('../../models/User');
 
@@ -126,7 +128,10 @@ router.post('/', auth, async (req, res) => {
 // @access      Public
 router.delete('/', auth, async (req, res) => {
   try {
-    // TODO: Delete posts
+    // Delete all posts
+    await Post.deleteMany({
+      user: { $in: req.user.id },
+    });
 
     // Delete profile
     await Profile.findOneAndRemove({ user: req.user.id });
