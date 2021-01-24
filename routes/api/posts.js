@@ -4,7 +4,6 @@ const auth = require('../../middleware/auth');
 const { validatePost } = require('../validation');
 
 const Post = require('../../models/Post');
-const Profile = require('../../models/Profile');
 const User = require('../../models/User');
 
 // @route       GET api/posts
