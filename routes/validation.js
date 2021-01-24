@@ -19,5 +19,21 @@ const validateLogin = (data) => {
   return schema.validate(data);
 };
 
+const validateProfile = (data) => {
+  const schema = Joi.object({
+    bio: Joi.string().max(160),
+    location: Joi.string(),
+    website: Joi.string().domain(),
+    birthday: Joi.date().iso(),
+    facebook: Joi.string(),
+    instagram: Joi.string(),
+    youtube: Joi.string(),
+    linkedin: Joi.string(),
+  });
+
+  return schema.validate(data);
+};
+
 module.exports.validateSignup = validateSignup;
 module.exports.validateLogin = validateLogin;
+module.exports.validateProfile = validateProfile;

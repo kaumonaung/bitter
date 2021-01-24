@@ -8,9 +8,15 @@ connectDB();
 // Init middleware
 app.use(express.json());
 
+// Homepage
+app.get('/', (req, res) => {
+  res.send('Homepage');
+});
+
 // Routes
 app.use('/api/users', require('./routes/api/users'));
 app.use('/api/auth', require('./routes/api/auth'));
+app.use('/api/profile', require('./routes/api/profiles'));
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log('Server running'));
