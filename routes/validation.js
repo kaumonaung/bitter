@@ -34,6 +34,15 @@ const validateProfile = (data) => {
   return schema.validate(data);
 };
 
+const validatePost = (data) => {
+  const schema = Joi.object({
+    text: Joi.string().max(280).required(),
+  });
+
+  return schema.validate(data);
+};
+
 module.exports.validateSignup = validateSignup;
 module.exports.validateLogin = validateLogin;
 module.exports.validateProfile = validateProfile;
+module.exports.validatePost = validatePost;

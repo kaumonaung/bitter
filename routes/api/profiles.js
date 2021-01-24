@@ -20,13 +20,13 @@ router.get('/', async (req, res) => {
 });
 
 // @route       GET api/profile/me
-// @desc        Get current user's profile
+// @desc        Get current profile
 // @access      Private
 router.get('/me', auth, async (req, res) => {
   try {
     const profile = await Profile.findOne({
       user: req.user.id,
-    }).populate('user', ['name']);
+    });
 
     if (!profile) {
       return res.status(500).json({ message: 'No profile found' });
@@ -45,7 +45,7 @@ router.get('/:user_id', async (req, res) => {
   try {
     const profile = await Profile.findOne({
       user: req.params.user_id,
-    }).populate('user', 'name');
+    });
 
     if (!profile) {
       return res.status(404).json({ message: 'Profile not found' });
@@ -59,7 +59,7 @@ router.get('/:user_id', async (req, res) => {
 });
 
 // @route       POST api/profile
-// @desc        Create a new profile
+// @desc        Create or update profile
 // @access      Private
 router.post('/', auth, async (req, res) => {
   // Validate input
@@ -95,11 +95,14 @@ router.post('/', auth, async (req, res) => {
   if (linkedin) profileFields.social.linkedin = linkedin;
 
   try {
+    // Fill in name with user name from database
+    const user = await User.findById(req.user.id).select('-password');
+    profileFields.name = user.name;
+
     // Check if profile already exists
-    let profile = Profile.findOne({ user: req.user.id });
+    let profile = await Profile.findOne({ user: req.user.id });
 
     if (profile) {
-      // return res.status(500).json({ message: 'Profile already created' });
       profile = await Profile.findOneAndUpdate(
         { user: req.user.id },
         { $set: profileFields },
@@ -109,7 +112,7 @@ router.post('/', auth, async (req, res) => {
       return res.json(profile);
     }
 
-    profile = new Profile(profileFields).populate('User', ['name']);
+    profile = new Profile(profileFields);
     await profile.save();
     res.status(201).json(profile);
   } catch (err) {
