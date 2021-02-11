@@ -6,9 +6,9 @@ import { Link } from 'react-router-dom';
 const Home = (props) => {
   return (
     <div>
-      <Link to='/register'>
+      <Link to='/signup'>
         <Button variant='outlined' color='primary'>
-          Register
+          Sign Up
         </Button>
       </Link>
       <Link to='/login'>

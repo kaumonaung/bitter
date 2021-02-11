@@ -11,9 +11,9 @@ const Login = (props) => {
           Home
         </Button>
       </Link>
-      <Link to='/register'>
+      <Link to='/signup'>
         <Button variant='outlined' color='primary'>
-          Register
+          Sign Up
         </Button>
       </Link>
     </div>

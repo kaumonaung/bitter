@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Button } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
-const Register = (props) => {
+const SignUp = (props) => {
   return (
     <div>
       <Link to='/'>
@@ -20,6 +20,6 @@ const Register = (props) => {
   );
 };
 
-Register.propTypes = {};
+SignUp.propTypes = {};
 
-export default Register;
+export default SignUp;
