@@ -16,7 +16,8 @@ export function useTheme() {
           },
 
           background: {
-            default: prefersDarkMode ? '#000' : '#fff',
+            default: prefersDarkMode ? '#000' : '#fafafa',
+            paper: prefersDarkMode ? '#1C1C1E' : '#fff',
           },
         },
       }),
