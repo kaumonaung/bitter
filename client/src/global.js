@@ -6,7 +6,10 @@ export const GlobalStyle = createGlobalStyle`
 }
 
 body {
-    font-family: 'Roboto', sans-serif;
-    margin: 0
-}
+    ${({ theme }) => `
+        font-family: 'Roboto', sans-serif;
+        margin: 0;
+        color: ${theme.palette.text.primary}
+        `}
+    }
 `;

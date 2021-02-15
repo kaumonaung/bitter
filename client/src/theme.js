@@ -8,6 +8,12 @@ export function useTheme() {
   return useMemo(
     () =>
       createMuiTheme({
+        mixins: {
+          toolbar: {
+            minHeight: '8vh',
+          },
+        },
+
         palette: {
           type: prefersDarkMode ? 'dark' : 'light',
 
