@@ -172,10 +172,10 @@ export const H6 = styled.h6`
 
 export const LinkText = styled.p`
   ${({ theme }) => `
-color: ${theme.palette.text.primary};
+    color: ${theme.palette.text.primary};
 
-&:hover {
-  color: ${theme.palette.primary.main};
-}
-`}
+    &:hover {
+      color: ${theme.palette.primary.main};
+    }
+  `}
 `;

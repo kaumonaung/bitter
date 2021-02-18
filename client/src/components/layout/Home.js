@@ -1,16 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Grid } from '@material-ui/core';
+import Logo from '../../img/logo.svg';
 import {
   FlexWrapper,
   MainContainer,
   GridContainer,
   StyledPaper as Paper,
   GridItemImg,
-} from '../styled/Containers';
-import { H1, H3 } from '../styled/Typography';
-import { StyledButton as Button, StyledLink as Link } from '../styled/Buttons';
-import Logo from '../../img/logo.svg';
+  StyledButton as Button,
+  StyledLink as Link,
+  H1,
+  H3,
+} from '../styled';
 
 const Home = (props) => {
   return (

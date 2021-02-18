@@ -7,7 +7,7 @@ import { IoPersonCircleSharp } from 'react-icons/io5';
 import { Typography, Button } from '@material-ui/core';
 import Logo from '../../img/logo.svg';
 import styled from 'styled-components';
-import { StyledLink as Link } from '../styled/Buttons';
+import { StyledLink as Link } from '../styled';
 
 const StyledLogo = styled.img`
   height: 2rem;

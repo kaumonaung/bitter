@@ -1,14 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Grid } from '@material-ui/core';
 import {
   MainContainer,
   GridContainer,
   StyledPaper,
-} from '../styled/Containers';
-import { StyledButton as Button, StyledLink as Link } from '../styled/Buttons';
-import { StyledTextField as TextField } from '../styled/TextField';
-import { Grid } from '@material-ui/core';
-import { H2, H5, LinkText } from '../styled/Typography';
+  StyledButton as Button,
+  StyledLink as Link,
+  StyledTextField as TextField,
+  LinkText,
+  H2,
+  H5,
+} from '../styled';
 
 const Login = (props) => {
   return (
