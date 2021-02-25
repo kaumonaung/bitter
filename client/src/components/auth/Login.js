@@ -1,19 +1,42 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Grid } from '@material-ui/core';
+import { LoginForm } from './LoginForm';
+import { useLoginUser } from '../../hooks';
+import { Redirect } from 'react-router-dom';
+import { Alert } from '../layout/Alert';
+import {
+  useAuthDispatch,
+  useAuthState,
+  LOGIN_SUCCESS,
+  loadUser,
+} from '../../context';
 import {
   MainContainer,
   GridContainer,
   StyledPaper,
-  StyledButton as Button,
   StyledLink as Link,
-  StyledTextField as TextField,
   LinkText,
   H2,
   H5,
 } from '../styled';
 
-const Login = (props) => {
+const Login = () => {
+  const authState = useAuthState();
+  const dispatch = useAuthDispatch();
+  const { isAuthenticated } = authState;
+
+  const { data, isError, isLoading, mutate, error, isSuccess } = useLoginUser();
+
+  if (isSuccess) {
+    console.log('Successfully logged in');
+    dispatch({ type: LOGIN_SUCCESS, payload: { token: data } });
+    loadUser(dispatch);
+  }
+
+  if (isAuthenticated) {
+    return <Redirect to='/feed' push />;
+  }
+
   return (
     <MainContainer $img>
       <GridContainer
@@ -22,58 +45,32 @@ const Login = (props) => {
         justify='center'
         alignItems='center'
       >
-        <form autoComplete='off'>
-          <Grid
-            container
-            item
-            direction='column-reverse'
-            justify='center'
-            alignItems='center'
-          >
-            <StyledPaper elevation={1} $md maxWidth='500px'>
-              <H2 primary $mB>
-                Log in
-              </H2>
-              <H5 secondary $mB>
-                Enter your email and password.
-              </H5>
+        <Grid
+          container
+          item
+          direction='column-reverse'
+          justify='center'
+          alignItems='center'
+        >
+          <StyledPaper elevation={1} $sm $maxWidth='500px'>
+            {isError && <Alert type='error' msg={error} />}
+            <H2 primary $mB>
+              Log in
+            </H2>
+            <H5 secondary $mB>
+              Enter your email and password.
+            </H5>
 
-              <TextField
-                id='email'
-                label='Email'
-                variant='outlined'
-                type='email'
-                fullWidth={true}
-                $mB
-              />
-              <TextField
-                id='password'
-                label='Password'
-                variant='outlined'
-                type='password'
-                fullWidth={true}
-                $mB
-              />
-              <Button
-                variant='contained'
-                color='primary'
-                fullWidth={true}
-                $mB
-                $medium
-              >
-                Log in
-              </Button>
-              <Link to='/signup'>
-                <LinkText>No account? Sign up instead.</LinkText>
-              </Link>
-            </StyledPaper>
-          </Grid>
-        </form>
+            <LoginForm logInFunc={mutate} isLoading={isLoading} />
+
+            <Link to='/signup'>
+              <LinkText>No account? Sign up instead.</LinkText>
+            </Link>
+          </StyledPaper>
+        </Grid>
       </GridContainer>
     </MainContainer>
   );
 };
-
-Login.propTypes = {};
 
 export default Login;

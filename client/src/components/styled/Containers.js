@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { Grid, Paper } from '@material-ui/core';
 import backgroundImg from '../../img/background.png';
 
-export const FlexWrapper = styled.div`
+export const Flex = styled.div`
   display: flex;
   flex-direction: ${(props) => (props.column ? 'column' : 'row')};
   flex-wrap: wrap;
@@ -21,7 +21,7 @@ export const FlexWrapper = styled.div`
 `;
 
 export const MainContainer = styled.div`
-  height: 92vh;
+  height: 100vh;
   width: 100%;
   background-image: ${(props) => props.$img && `url(${backgroundImg})`};
 `;
@@ -30,13 +30,13 @@ export const GridContainer = styled(Grid)`
   height: 100%;
 `;
 
-export const GridItemImg = styled(Grid)`
+export const GridImage = styled(Grid)`
   background-image: url(${backgroundImg});
 `;
 
 export const StyledPaper = styled(Paper)`
   padding: 1rem;
-  max-width: ${(props) => props.maxWidth};
+  max-width: ${(props) => props.$maxWidth};
 
   ${(props) => {
     if (props.$xs)

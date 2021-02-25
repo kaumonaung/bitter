@@ -63,7 +63,7 @@ router.post('/', async (req, res) => {
       { expiresIn: 3600 },
       (err, token) => {
         if (err) throw err;
-        res.send(token);
+        res.json({ token });
       }
     );
   } catch (err) {

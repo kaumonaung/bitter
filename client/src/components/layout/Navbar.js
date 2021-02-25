@@ -9,6 +9,9 @@ import Logo from '../../img/logo.svg';
 import styled from 'styled-components';
 import { StyledLink as Link } from '../styled';
 
+// Global State
+import { useAuthState } from '../../context';
+
 const StyledLogo = styled.img`
   height: 2rem;
   margin-right: 0.5rem;
@@ -19,6 +22,8 @@ const StyledIconButton = styled(IconButton)`
 `;
 
 const Navbar = () => {
+  const { isAuthenticated } = useAuthState();
+
   return (
     <AppBar position='sticky' color='default'>
       <Toolbar>
@@ -33,9 +38,11 @@ const Navbar = () => {
 
         <Button>Posts</Button>
 
-        <IconButton edge='end' color='inherit'>
-          <IoPersonCircleSharp />
-        </IconButton>
+        {isAuthenticated && (
+          <IconButton edge='end' color='inherit'>
+            <IoPersonCircleSharp />
+          </IconButton>
+        )}
 
         <StyledIconButton edge='start' color='inherit' aria-label='menu'>
           <MdMenu />

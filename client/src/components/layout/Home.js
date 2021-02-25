@@ -1,24 +1,23 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Grid } from '@material-ui/core';
 import Logo from '../../img/logo.svg';
 import {
-  FlexWrapper,
+  Flex,
   MainContainer,
   GridContainer,
   StyledPaper as Paper,
-  GridItemImg,
+  GridImage,
   StyledButton as Button,
   StyledLink as Link,
   H1,
   H3,
 } from '../styled';
 
-const Home = (props) => {
+const Home = () => {
   return (
     <MainContainer>
       <GridContainer container>
-        <GridItemImg
+        <GridImage
           container
           item
           xs={12}
@@ -32,7 +31,7 @@ const Home = (props) => {
             style={{ minWidth: '35%', maxWidth: '40%', maxHeight: '70%' }}
             alt='Bitter Logo'
           />
-        </GridItemImg>
+        </GridImage>
         <Grid
           container
           item
@@ -49,7 +48,7 @@ const Home = (props) => {
 
             <H3 $mB>Sweeten it up a bit today.</H3>
 
-            <FlexWrapper column>
+            <Flex column>
               <Link to='/signup' $mB $mT>
                 <Button
                   variant='contained'
@@ -71,14 +70,12 @@ const Home = (props) => {
                   Login
                 </Button>
               </Link>
-            </FlexWrapper>
+            </Flex>
           </Paper>
         </Grid>
       </GridContainer>
     </MainContainer>
   );
 };
-
-Home.propTypes = {};
 
 export default Home;
