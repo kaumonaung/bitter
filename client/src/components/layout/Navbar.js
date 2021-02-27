@@ -1,55 +1,137 @@
-import React from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
+import React, { useState } from 'react';
 import { MdMenu } from 'react-icons/md';
-import { IoPersonCircleSharp } from 'react-icons/io5';
-import { Typography, Button } from '@material-ui/core';
+import { withRouter } from 'react-router-dom';
 import Logo from '../../img/logo.svg';
 import styled from 'styled-components';
-import { StyledLink as Link } from '../styled';
+import { Flex } from '../styled';
+import { useTheme } from '@material-ui/core/styles';
+import {
+  AppBar,
+  Toolbar,
+  Menu,
+  MenuItem,
+  IconButton,
+  useMediaQuery,
+  Button,
+  Typography,
+} from '@material-ui/core';
 
 // Global State
-import { useAuthState } from '../../context';
+import { useAuthState, useAuthDispatch, LOGOUT, loadUser } from '../../context';
 
 const StyledLogo = styled.img`
   height: 2rem;
   margin-right: 0.5rem;
 `;
 
-const StyledIconButton = styled(IconButton)`
-  margin-left: 1rem;
-`;
-
-const Navbar = () => {
+const Navbar = (props) => {
   const { isAuthenticated } = useAuthState();
+  const dispatch = useAuthDispatch();
+  const { history } = props;
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClick = (pageURL) => {
+    history.push(pageURL);
+    setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    console.log('Log out');
+    dispatch({ type: LOGOUT });
+  };
 
   return (
     <AppBar position='sticky' color='default'>
       <Toolbar>
-        <Link to='/' style={{ flexGrow: 1 }}>
-          <div style={{ display: 'flex' }}>
-            <StyledLogo src={Logo} alt='Bitter Logo' />
-            <Typography variant='h6' color='primary'>
-              Bitter
-            </Typography>
+        <div style={{ flexGrow: 1 }}>
+          <Button onClick={() => handleMenuClick('/')}>
+            <Flex>
+              <StyledLogo src={Logo} alt='Bitter Logo' />
+              <Typography variant='h6' component='h2' color='primary'>
+                Bitter
+              </Typography>
+            </Flex>
+          </Button>
+        </div>
+
+        {isMobile ? (
+          <div>
+            <IconButton
+              edge='start'
+              color='inherit'
+              aria-label='menu'
+              onClick={handleMenu}
+            >
+              <MdMenu />
+            </IconButton>
+
+            <Menu
+              id='menu-appbar'
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={open}
+              onClose={() => setAnchorEl(null)}
+            >
+              <MenuItem onClick={() => handleMenuClick('/')}>Home</MenuItem>
+              <MenuItem onClick={() => handleMenuClick('/feed')}>Feed</MenuItem>
+              {!isAuthenticated && (
+                <MenuItem onClick={() => handleMenuClick('/signup')}>
+                  Sign Up
+                </MenuItem>
+              )}
+              {isAuthenticated ? (
+                <MenuItem
+                  onClick={() => handleLogout()}
+                  style={{ color: `${theme.palette.error.main}` }}
+                >
+                  Log Out
+                </MenuItem>
+              ) : (
+                <MenuItem onClick={() => handleMenuClick('/login')}>
+                  Login
+                </MenuItem>
+              )}
+            </Menu>
           </div>
-        </Link>
-
-        <Button>Posts</Button>
-
-        {isAuthenticated && (
-          <IconButton edge='end' color='inherit'>
-            <IoPersonCircleSharp />
-          </IconButton>
+        ) : (
+          <>
+            <Button onClick={() => handleMenuClick('/')}>Home</Button>
+            <Button onClick={() => handleMenuClick('/feed')}>Feed</Button>
+            {!isAuthenticated && (
+              <Button onClick={() => handleMenuClick('/signup')}>
+                Sign Up
+              </Button>
+            )}
+            {isAuthenticated ? (
+              <Button
+                onClick={() => handleLogout()}
+                style={{ color: `${theme.palette.error.main}` }}
+              >
+                Log Out
+              </Button>
+            ) : (
+              <Button onClick={() => handleMenuClick('/login')}>Login</Button>
+            )}
+          </>
         )}
-
-        <StyledIconButton edge='start' color='inherit' aria-label='menu'>
-          <MdMenu />
-        </StyledIconButton>
       </Toolbar>
     </AppBar>
   );
 };
 
-export default Navbar;
+export default withRouter(Navbar);

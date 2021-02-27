@@ -6,6 +6,7 @@ export const Flex = styled.div`
   display: flex;
   flex-direction: ${(props) => (props.column ? 'column' : 'row')};
   flex-wrap: wrap;
+
   ${(props) => {
     if (props.center)
       return `

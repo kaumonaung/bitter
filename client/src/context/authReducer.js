@@ -31,6 +31,7 @@ export const AuthReducer = (state = initialState, action) => {
     case AUTH_ERROR:
     case LOGOUT:
     case ACCOUNT_DELETED:
+      localStorage.removeItem('token');
       return { ...state, isAuthenticated: null, token: null, user: null };
 
     default:

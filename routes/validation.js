@@ -14,7 +14,7 @@ const validateSignup = (data) => {
 const validateLogin = (data) => {
   const schema = Joi.object({
     email: Joi.string().email(),
-    password: Joi.string().min(3).pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
+    password: Joi.string().min(3),
   });
 
   return schema.validate(data);
