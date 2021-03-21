@@ -1,26 +1,41 @@
 import React, { useEffect } from 'react';
 import { usePostProfile, useGetCurrentProfile } from '../../hooks';
 import { MainContainer, GridContainer } from '../styled';
-import { useAuthState } from '../../context';
-import { Redirect } from 'react-router-dom';
+import { useAuthState, useAuthDispatch, deleteAccount } from '../../context';
+import { Redirect, useHistory } from 'react-router-dom';
 import { EditProfileForm } from './EditProfileForm';
-import { CircularProgress, Button as MUIButton } from '@material-ui/core';
+import { CircularProgress } from '@material-ui/core';
+
 import {
   StyledButton as Button,
+  StyledDangerButton as DeleteButton,
   H3,
-  StyledLink as Link,
   FormContainer,
   Flex,
 } from '../styled';
 
 const EditProfile = () => {
+  const history = useHistory();
   const { isAuthenticated } = useAuthState();
+  const dispatch = useAuthDispatch();
   const { data: profileData, isLoading } = useGetCurrentProfile();
-  const { mutate: editProfile } = usePostProfile();
+  const { mutate: editProfile, isSuccess } = usePostProfile();
 
   if (!isLoading && !profileData && !isAuthenticated) {
     return <Redirect to={`/login`} push />;
   }
+
+  const handleDelete = async () => {
+    try {
+      const isDeleted = await deleteAccount(dispatch);
+
+      if (isDeleted) {
+        return history.push('/');
+      }
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
 
   return (
     <>
@@ -35,20 +50,26 @@ const EditProfile = () => {
             <CircularProgress thickness={5} />
           ) : (
             <FormContainer>
-              <div style={{ marginBottom: '1rem' }}>
+              <div style={{ marginBottom: '2rem' }}>
                 <H3 primary $mT $mB>
                   Edit your profile
                 </H3>
                 <Flex $row>
-                  <Link to={`/profile/${profileData._id}`}>
-                    <Button variant='outlined' $mB>
-                      Return to Profile
-                    </Button>
-                  </Link>
-                  // TODO: Create "Danger" Button to delete the account
-                  <MUIButton variant='contained' color='secondary'>
+                  <Button
+                    variant='outlined'
+                    onClick={() => history.push(`profile/${profileData._id}`)}
+                  >
+                    Return to Profile
+                  </Button>
+
+                  <DeleteButton
+                    variant='contained'
+                    color='secondary'
+                    onClick={() => handleDelete()}
+                    $mL
+                  >
                     Delete Account
-                  </MUIButton>
+                  </DeleteButton>
                 </Flex>
               </div>
 
@@ -56,6 +77,7 @@ const EditProfile = () => {
                 profileData={profileData}
                 editProfileFunc={editProfile}
                 isLoading={isLoading}
+                isSuccess={isSuccess}
               />
             </FormContainer>
           )}

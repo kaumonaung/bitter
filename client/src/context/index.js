@@ -1,4 +1,4 @@
-import { loadUser } from './authActions';
+import { loadUser, deleteAccount } from './authActions';
 import { AuthReducer, initialState } from './authReducer';
 import { AuthProvider, useAuthState, useAuthDispatch } from './authContext';
 
@@ -9,6 +9,7 @@ export {
   AuthProvider,
   useAuthState,
   useAuthDispatch,
+  deleteAccount,
 };
 
 export * from './types';

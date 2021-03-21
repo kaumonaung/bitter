@@ -1,15 +1,18 @@
 import React, { useEffect } from 'react';
 import { usePostProfile, useGetCurrentProfile } from '../../hooks';
 import { CreateProfileForm } from './CreateProfileForm';
-import { useAuthState } from '../../context';
+import { useAuthState, useAuthDispatch, loadUser } from '../../context';
 import { Redirect } from 'react-router-dom';
 import { MainContainer, GridContainer, FormContainer, H3 } from '../styled';
 
 const CreateProfile = () => {
+  const dispatch = useAuthDispatch();
   const { isAuthenticated } = useAuthState();
   const { data, isLoading, mutate: createProfile } = usePostProfile();
+  const { data: profileData } = useGetCurrentProfile();
 
   useEffect(() => {
+    loadUser(dispatch);
     if (isAuthenticated) {
       document.getElementsByClassName(
         'MuiToolbar-root MuiToolbar-regular MuiToolbar-gutters'
@@ -17,10 +20,9 @@ const CreateProfile = () => {
     }
   }, []);
 
-  // TODO: load user in useEffect to check for authentification
-  // if (!isAuthenticated) {
-  //   return <Redirect to={`/login`} push />;
-  // }
+  if (profileData) {
+    return <Redirect to={`/login`} push />;
+  }
 
   if (data) {
     document.getElementsByClassName(
@@ -41,7 +43,7 @@ const CreateProfile = () => {
           <FormContainer>
             <div style={{ marginBottom: '1rem' }}>
               <H3 primary $mT $mB>
-                Edit your profile
+                Create your profile
               </H3>
               <p>All fields are optional</p>
             </div>

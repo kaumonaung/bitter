@@ -15,12 +15,8 @@ const CreateProfileSchema = Yup.object().shape({
   birthday: Yup.date(),
   location: Yup.string(),
   bio: Yup.string().max(160, 'Biography cannot be longer than 160 characters'),
-  website: Yup.lazy((value) =>
-    !value ? Yup.string() : Yup.string().url('Must be a valid URL')
-  ),
-  facebook: Yup.lazy((value) =>
-    !value ? Yup.string() : Yup.string().url('Must be a valid URL')
-  ),
+  website: Yup.string().url('Must be a valid URL'),
+  facebook: Yup.string().url('Must be a valid URL'),
   instagram: Yup.string().url('Must be a valid URL'),
   youtube: Yup.string().url('Must be a valid URL'),
   linkedin: Yup.string().url('Must be a valid URL'),

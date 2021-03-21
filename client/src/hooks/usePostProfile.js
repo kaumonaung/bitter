@@ -1,5 +1,5 @@
 import { authMutateAxios } from '../config';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 
 const mutateProfile = async (values) => {
   const authAxios = authMutateAxios();
@@ -14,5 +14,11 @@ const mutateProfile = async (values) => {
 };
 
 export default function usePostProfile() {
-  return useMutation(mutateProfile);
+  const queryClient = useQueryClient();
+
+  return useMutation(mutateProfile, {
+    onSuccess: () => {
+      queryClient.invalidateQueries('profile');
+    },
+  });
 }

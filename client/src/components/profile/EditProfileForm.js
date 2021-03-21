@@ -4,6 +4,7 @@ import { Formik, Form, Field } from 'formik';
 import { CircularProgress } from '@material-ui/core';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
+import { Alert } from '../layout/Alert';
 import {
   StyledButton as Button,
   StyledFormikTextField as TextField,
@@ -26,6 +27,7 @@ export const EditProfileForm = ({
   profileData: { bio, birthday, location, website, social },
   editProfileFunc,
   isLoading,
+  isSuccess,
 }) => {
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -122,9 +124,16 @@ export const EditProfileForm = ({
             type='text'
             label='LinkedIn'
             fullWidth={true}
-            $mB='3rem'
+            $mB='2rem'
             disabled={false}
           />
+          {isSuccess && (
+            <Alert
+              type='success'
+              msg='Profile successfully updated!'
+              style={{ margin: '0' }}
+            />
+          )}
           <Button
             variant='contained'
             color='primary'
@@ -140,6 +149,7 @@ export const EditProfileForm = ({
               )
             }
             $mB
+            $mT
             $medium
           >
             {isLoading ? 'Updating...' : 'Update Profile'}

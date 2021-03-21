@@ -19,6 +19,8 @@ export const Flex = styled.div`
         align-items: flex-end
       `;
   }}
+
+  margin-bottom: ${(props) => props.$mB}
 `;
 
 export const MainContainer = styled.div`
