@@ -91,10 +91,30 @@ router.post('/', auth, async (req, res) => {
 
   // Build socials in profile object
   profileFields.social = {};
-  if (facebook) profileFields.social.facebook = facebook;
-  if (instagram) profileFields.social.instagram = instagram;
-  if (youtube) profileFields.social.youtube = youtube;
-  if (linkedin) profileFields.social.linkedin = linkedin;
+
+  if (facebook) {
+    profileFields.social.facebook = facebook;
+  } else {
+    profileFields.social.facebook = null;
+  }
+
+  if (instagram) {
+    profileFields.social.instagram = instagram;
+  } else {
+    profileFields.social.instagram = null;
+  }
+
+  if (youtube) {
+    profileFields.social.youtube = youtube;
+  } else {
+    profileFields.social.youtube = null;
+  }
+
+  if (linkedin) {
+    profileFields.social.linkedin = linkedin;
+  } else {
+    profileFields.social.linkedin = null;
+  }
 
   try {
     // Fill in name with user name from database

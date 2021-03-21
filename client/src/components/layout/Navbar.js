@@ -17,7 +17,7 @@ import {
 } from '@material-ui/core';
 
 // Global State
-import { useAuthState, useAuthDispatch, LOGOUT, loadUser } from '../../context';
+import { useAuthState, useAuthDispatch, LOGOUT } from '../../context';
 
 const StyledLogo = styled.img`
   height: 2rem;

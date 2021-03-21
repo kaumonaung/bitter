@@ -30,9 +30,7 @@ export const SignUpForm = ({ signUpFunc, isLoading }) => {
         repeatPassword: '',
       }}
       validationSchema={SignUpSchema}
-      onSubmit={(values) => {
-        signUpFunc(values);
-      }}
+      onSubmit={(values) => signUpFunc(values)}
     >
       {
         <Form autoComplete='off'>
@@ -43,7 +41,8 @@ export const SignUpForm = ({ signUpFunc, isLoading }) => {
             label='Name'
             fullWidth={true}
             variant='outlined'
-            $mB
+            $mB='1rem'
+            disabled={false}
           />
           <Field
             component={TextField}
@@ -52,7 +51,8 @@ export const SignUpForm = ({ signUpFunc, isLoading }) => {
             label='Email'
             fullWidth={true}
             variant='outlined'
-            $mB
+            $mB='1rem'
+            disabled={false}
           />
           <Field
             component={TextField}
@@ -61,7 +61,8 @@ export const SignUpForm = ({ signUpFunc, isLoading }) => {
             label='Password'
             fullWidth={true}
             variant='outlined'
-            $mB
+            $mB='1rem'
+            disabled={false}
           />
           <Field
             component={TextField}
@@ -70,7 +71,8 @@ export const SignUpForm = ({ signUpFunc, isLoading }) => {
             label='Confirm Password'
             fullWidth={true}
             variant='outlined'
-            $mB
+            $mB='1rem'
+            disabled={false}
           />
           <Button
             variant='contained'

@@ -62,3 +62,9 @@ export const StyledPaper = styled(Paper)`
     `;
   }};
 `;
+
+export const FormContainer = styled.div`
+  display: block;
+  max-width: 500px;
+  padding: 2rem;
+`;

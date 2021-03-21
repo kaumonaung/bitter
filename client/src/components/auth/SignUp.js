@@ -26,22 +26,23 @@ const SignUp = () => {
   const { isAuthenticated } = authState;
 
   const {
-    data,
     isError,
     isLoading,
-    mutate,
+    mutate: signUpFunc,
     error,
     isSuccess,
   } = useRegisterUser();
 
   if (isSuccess) {
     console.log('Successfully registered user');
-    dispatch({ type: REGISTER_SUCCESS, payload: { token: data.token } });
+    dispatch({
+      type: REGISTER_SUCCESS,
+    });
     loadUser(dispatch);
   }
 
   if (isAuthenticated) {
-    return <Redirect to='/feed' push />;
+    return <Redirect to='/create-profile' push />;
   }
 
   return (
@@ -69,7 +70,7 @@ const SignUp = () => {
               Register with your email.
             </H5>
 
-            <SignUpForm signUpFunc={mutate} isLoading={isLoading} />
+            <SignUpForm signUpFunc={signUpFunc} isLoading={isLoading} />
 
             <Link to='/login'>
               <LinkText>Already have an account? Log in instead.</LinkText>

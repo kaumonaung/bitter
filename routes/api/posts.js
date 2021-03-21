@@ -6,8 +6,22 @@ const { validatePost } = require('../validation');
 const Post = require('../../models/Post');
 const User = require('../../models/User');
 
+const paginatedResults = require('../../middleware/paginatedResults');
+
 // @route       GET api/posts
 // @desc        Get all posts
+// @access      Public
+router.get('/feed', paginatedResults(Post), async (req, res) => {
+  try {
+    res.json(res.paginatedResults);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+// @route       GET api/posts
+// @desc        Get all user's posts
 // @access      Private
 router.get('/', auth, async (req, res) => {
   try {

@@ -22,14 +22,14 @@ const validateLogin = (data) => {
 
 const validateProfile = (data) => {
   const schema = Joi.object({
-    bio: Joi.string().max(160),
-    location: Joi.string(),
-    website: Joi.string().domain(),
-    birthday: Joi.date().iso(),
-    facebook: Joi.string(),
-    instagram: Joi.string(),
-    youtube: Joi.string(),
-    linkedin: Joi.string(),
+    bio: Joi.string().max(160).allow(null, ''),
+    location: Joi.string().allow(null, ''),
+    website: Joi.string().allow(null, ''),
+    birthday: Joi.date().iso().allow(null, ''),
+    facebook: Joi.string().allow(null, ''),
+    instagram: Joi.string().allow(null, ''),
+    youtube: Joi.string().allow(null, ''),
+    linkedin: Joi.string().allow(null, ''),
   });
 
   return schema.validate(data);

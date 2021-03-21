@@ -21,10 +21,8 @@ export const AuthReducer = (state = initialState, action) => {
       return { ...state, isAuthenticated: true, user: payload };
     case LOGIN_SUCCESS:
     case REGISTER_SUCCESS:
-      localStorage.setItem('token', payload.token);
       return {
         ...state,
-        ...payload,
         isAuthenticated: true,
       };
 

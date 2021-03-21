@@ -20,9 +20,7 @@ export const LoginForm = ({ logInFunc, isLoading }) => {
         password: '',
       }}
       validationSchema={LoginSchema}
-      onSubmit={(values) => {
-        logInFunc(values);
-      }}
+      onSubmit={(values) => logInFunc(values)}
     >
       {
         <Form autoComplete='off'>
@@ -33,7 +31,8 @@ export const LoginForm = ({ logInFunc, isLoading }) => {
             label='Email'
             fullWidth={true}
             variant='outlined'
-            $mB
+            $mB='1rem'
+            disabled={false}
           />
           <Field
             component={TextField}
@@ -42,7 +41,8 @@ export const LoginForm = ({ logInFunc, isLoading }) => {
             label='Password'
             fullWidth={true}
             variant='outlined'
-            $mB
+            $mB='1rem'
+            disabled={false}
           />
 
           <Button
