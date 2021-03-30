@@ -37,7 +37,7 @@ const validateProfile = (data) => {
 
 const validatePost = (data) => {
   const schema = Joi.object({
-    text: Joi.string().max(280).required(),
+    postText: Joi.string().max(280).required(),
   });
 
   return schema.validate(data);

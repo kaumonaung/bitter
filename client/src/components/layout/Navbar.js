@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { MdMenu } from 'react-icons/md';
 import { withRouter } from 'react-router-dom';
+import { useAuthState, useAuthDispatch, LOGOUT } from '../../context';
+import { useGetCurrentProfile } from '../../hooks';
 import Logo from '../../img/logo.svg';
 import styled from 'styled-components';
-import { Flex } from '../styled';
+import { Flex, StyledButton as Button } from '../styled';
 import { useTheme } from '@material-ui/core/styles';
 import {
   AppBar,
@@ -12,12 +14,8 @@ import {
   MenuItem,
   IconButton,
   useMediaQuery,
-  Button,
   Typography,
 } from '@material-ui/core';
-
-// Global State
-import { useAuthState, useAuthDispatch, LOGOUT } from '../../context';
 
 const StyledLogo = styled.img`
   height: 2rem;
@@ -25,7 +23,7 @@ const StyledLogo = styled.img`
 `;
 
 const Navbar = (props) => {
-  const { isAuthenticated } = useAuthState();
+  const { isAuthenticated, user } = useAuthState();
   const dispatch = useAuthDispatch();
   const { history } = props;
   const [anchorEl, setAnchorEl] = useState(null);
@@ -45,6 +43,7 @@ const Navbar = (props) => {
   const handleLogout = () => {
     console.log('Log out');
     dispatch({ type: LOGOUT });
+    history.push('/');
   };
 
   return (
@@ -87,8 +86,19 @@ const Navbar = (props) => {
               open={open}
               onClose={() => setAnchorEl(null)}
             >
-              <MenuItem onClick={() => handleMenuClick('/')}>Home</MenuItem>
               <MenuItem onClick={() => handleMenuClick('/feed')}>Feed</MenuItem>
+              {isAuthenticated && (
+                <MenuItem
+                  onClick={() => handleMenuClick(`profile/${user._id}`)}
+                >
+                  My Profile
+                </MenuItem>
+              )}
+              {isAuthenticated && (
+                <MenuItem onClick={() => handleMenuClick('/edit-profile')}>
+                  Edit Profile
+                </MenuItem>
+              )}
               {!isAuthenticated && (
                 <MenuItem onClick={() => handleMenuClick('/signup')}>
                   Sign Up
@@ -110,10 +120,24 @@ const Navbar = (props) => {
           </div>
         ) : (
           <>
-            <Button onClick={() => handleMenuClick('/')}>Home</Button>
-            <Button onClick={() => handleMenuClick('/feed')}>Feed</Button>
+            <Button $mR onClick={() => handleMenuClick('/feed')}>
+              Feed
+            </Button>
+            {isAuthenticated && (
+              <Button
+                $mR
+                onClick={() => handleMenuClick(`/profile/${user._id}`)}
+              >
+                My Profile
+              </Button>
+            )}
+            {isAuthenticated && (
+              <Button $mR onClick={() => handleMenuClick('/edit-profile')}>
+                Edit Profile
+              </Button>
+            )}
             {!isAuthenticated && (
-              <Button onClick={() => handleMenuClick('/signup')}>
+              <Button $mR onClick={() => handleMenuClick('/signup')}>
                 Sign Up
               </Button>
             )}

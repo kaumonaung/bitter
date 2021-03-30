@@ -7,6 +7,7 @@ import Feed from '../components/feed/Feed';
 import Profile from '../components/profile/Profile';
 import CreateProfile from '../components/profile/CreateProfile';
 import EditProfile from '../components/profile/EditProfile';
+import { Post } from '../components/post';
 
 const Routes = () => {
   return (
@@ -15,9 +16,10 @@ const Routes = () => {
       <Route exact path='/signup' component={SignUp} />
       <Route exact path='/login' component={Login} />
       <Route exact path='/feed' component={Feed} />
-      <Route exact path='/profile/:id' component={Profile} />
+      <Route exact path='/profile/:user_id' component={Profile} />
       <Route exact path='/create-profile' component={CreateProfile} />
       <Route exact path='/edit-profile' component={EditProfile} />
+      <Route exact path='/posts/:post_id' component={Post} />
     </Switch>
   );
 };

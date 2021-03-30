@@ -7,6 +7,14 @@ export const Flex = styled.div`
   flex-direction: ${(props) => (props.column ? 'column' : 'row')};
   flex-wrap: wrap;
 
+  padding-top: ${(props) => props.$vPad};
+  padding-bottom: ${(props) => props.$vPad};
+  padding-left: ${(props) => props.$hPad};
+  padding-right: ${(props) => props.$hPad};
+
+  margin-top: ${(props) => props.$mT};
+  margin-bottom: ${(props) => props.$mB};
+
   ${(props) => {
     if (props.center)
       return `
@@ -18,9 +26,12 @@ export const Flex = styled.div`
         justify-content: flex-end;
         align-items: flex-end
       `;
+    if (props.spaceBetween)
+      return `
+        justify-content: space-between;
+        align-items: center
+      `;
   }}
-
-  margin-bottom: ${(props) => props.$mB}
 `;
 
 export const MainContainer = styled.div`
@@ -31,6 +42,7 @@ export const MainContainer = styled.div`
 
 export const GridContainer = styled(Grid)`
   height: 100%;
+  max-width: ${(props) => props.$maxWidth};
 `;
 
 export const GridImage = styled(Grid)`
@@ -69,4 +81,21 @@ export const FormContainer = styled.div`
   display: block;
   max-width: 500px;
   padding: 2rem;
+`;
+
+export const ProfileBox = styled.div`
+  padding-top: ${(props) => props.$vPad};
+  padding-bottom: ${(props) => props.$vPad};
+  padding-left: ${(props) => props.$hPad};
+  padding-right: ${(props) => props.$hPad};
+
+  margin-left: ${(props) => props.$mL};
+  margin-right: ${(props) => props.$mR};
+`;
+
+export const Divider = styled.div`
+  width: 100%;
+  height: 3rem;
+
+  background-color: ${(props) => props.theme.palette.primary.main};
 `;

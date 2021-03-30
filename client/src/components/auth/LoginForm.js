@@ -1,11 +1,11 @@
 import React from 'react';
 import * as Yup from 'yup';
 import { Formik, Form, Field } from 'formik';
+import { CircularProgress } from '@material-ui/core';
 import {
   StyledButton as Button,
   StyledFormikTextField as TextField,
 } from '../styled';
-import { CircularProgress } from '@material-ui/core';
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Required'),

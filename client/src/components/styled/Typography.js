@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
 const margin = '1rem';
-const primary = '#E63850';
-const secondary = '#616161';
 
 export const H1 = styled.h1`
   font-size: 2.5rem;
@@ -19,11 +17,11 @@ export const H1 = styled.h1`
   ${(props) => {
     if (props.primary)
       return `
-  color: ${primary}
+  color: ${props.theme.palette.primary.main}
   `;
     if (props.secondary)
       return `
-  color: ${secondary}
+  color: ${props.theme.palette.grey[700]}
   `;
   }};
 
@@ -48,11 +46,11 @@ export const H2 = styled.h2`
   ${(props) => {
     if (props.primary)
       return `
-  color: ${primary}
+  color: ${props.theme.palette.primary.main}
   `;
     if (props.secondary)
       return `
-  color: ${secondary}
+  color: ${props.theme.palette.grey[700]}
   `;
   }};
 
@@ -77,11 +75,11 @@ export const H3 = styled.h3`
   ${(props) => {
     if (props.primary)
       return `
-  color: ${primary}
+  color: ${props.theme.palette.primary.main}
   `;
     if (props.secondary)
       return `
-  color: ${secondary}
+  color: ${props.theme.palette.grey[700]}
   `;
   }};
 
@@ -106,11 +104,11 @@ export const H4 = styled.h4`
   ${(props) => {
     if (props.primary)
       return `
-  color: ${primary}
+  color: ${props.theme.palette.primary.main}
   `;
     if (props.secondary)
       return `
-  color: ${secondary}
+  color: ${props.theme.palette.grey[700]}
   `;
   }};
 
@@ -131,11 +129,11 @@ export const H5 = styled.h5`
   ${(props) => {
     if (props.primary)
       return `
-  color: ${primary}
+  color: ${props.theme.palette.primary.main}
   `;
     if (props.secondary)
       return `
-  color: ${secondary}
+  color: ${props.theme.palette.grey[700]}
   `;
   }};
 
@@ -156,11 +154,11 @@ export const H6 = styled.h6`
   ${(props) => {
     if (props.primary)
       return `
-  color: ${primary}
+  color: ${props.theme.palette.primary.main}
   `;
     if (props.secondary)
       return `
-  color: ${secondary}
+  color: ${props.theme.palette.grey[700]}
   `;
   }};
 
@@ -178,4 +176,50 @@ export const LinkText = styled.p`
       color: ${theme.palette.primary.main};
     }
   `}
+`;
+
+export const ProfileName = styled.h1`
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin: 0.2rem 0;
+
+  color: ${(props) => props.theme.palette.primary.main};
+`;
+
+export const ProfileHeading = styled.h3`
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0;
+
+  margin-left: ${(props) => props.$mL};
+  margin-right: ${(props) => props.$mR};
+`;
+
+export const PostItemAuthor = styled.h4`
+  font-size: ${(props) => props.$size};
+  font-weight: 700;
+  margin: 0;
+  cursor: pointer;
+
+  color: ${(props) => props.theme.palette.primary.main};
+
+  margin-left: ${(props) => props.$mL};
+  margin-right: ${(props) => props.$mR};
+`;
+
+export const Text = styled.p`
+  font-size: ${(props) => props.$size};
+  margin: 0;
+
+  margin-left: ${(props) => props.$mL};
+  margin-right: ${(props) => props.$mR};
+  margin-top: ${(props) => props.$mT};
+  margin-bottom: ${(props) => props.$mB};
+
+  ${(props) => {
+    if (props.grey)
+      return `
+  color: ${props.theme.palette.grey[500]}
+  `;
+  }}
 `;

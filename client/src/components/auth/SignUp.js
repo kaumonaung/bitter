@@ -4,12 +4,7 @@ import { useRegisterUser } from '../../hooks';
 import { Redirect } from 'react-router-dom';
 import { Grid } from '@material-ui/core';
 import { Alert } from '../layout/Alert';
-import {
-  useAuthDispatch,
-  useAuthState,
-  REGISTER_SUCCESS,
-  loadUser,
-} from '../../context';
+import { useAuthDispatch, useAuthState } from '../../context';
 import {
   MainContainer,
   GridContainer,
@@ -25,21 +20,9 @@ const SignUp = () => {
   const dispatch = useAuthDispatch();
   const { isAuthenticated } = authState;
 
-  const {
-    isError,
-    isLoading,
-    mutate: signUpFunc,
-    error,
-    isSuccess,
-  } = useRegisterUser();
-
-  if (isSuccess) {
-    console.log('Successfully registered user');
-    dispatch({
-      type: REGISTER_SUCCESS,
-    });
-    loadUser(dispatch);
-  }
+  const { isError, isLoading, mutate: signUpFunc, error } = useRegisterUser(
+    dispatch
+  );
 
   if (isAuthenticated) {
     return <Redirect to='/create-profile' push />;

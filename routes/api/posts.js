@@ -8,7 +8,7 @@ const User = require('../../models/User');
 
 const paginatedResults = require('../../middleware/paginatedResults');
 
-// @route       GET api/posts
+// @route       GET api/posts/feed
 // @desc        Get all posts
 // @access      Public
 router.get('/feed', paginatedResults(Post), async (req, res) => {
@@ -20,13 +20,32 @@ router.get('/feed', paginatedResults(Post), async (req, res) => {
   }
 });
 
-// @route       GET api/posts
+// @route       GET api/posts/user/:user_id
 // @desc        Get all user's posts
-// @access      Private
-router.get('/', auth, async (req, res) => {
+// @access      Public
+router.get('/user/:id', async (req, res) => {
+  const page = parseInt(req.query.page);
+  const limit = parseInt(req.query.limit);
+
   try {
-    const posts = await Post.find().sort({ date: -1 });
-    res.json(posts);
+    const total = await Post.find({ user: req.params.id }).countDocuments();
+
+    const startIndex = (page - 1) * limit;
+
+    const results = {
+      endIndex: page * limit,
+      nextPage: page + 1,
+      prevPage: page - 1,
+      totalPages: total,
+      limit: limit,
+    };
+
+    results.results = await Post.find({ user: req.params.id })
+      .sort({ createdAt: -1 })
+      .limit(limit)
+      .skip(startIndex);
+
+    res.json(results);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
@@ -35,8 +54,8 @@ router.get('/', auth, async (req, res) => {
 
 // @route       GET api/posts/:post_id
 // @desc        Get post by ID
-// @access      Private
-router.get('/:post_id', auth, async (req, res) => {
+// @access      Public
+router.get('/:post_id', async (req, res) => {
   try {
     const post = await Post.findById(req.params.post_id);
 
@@ -71,7 +90,7 @@ router.post('/', auth, async (req, res) => {
     // Create new post object
     const newPost = new Post({
       user: req.user.id,
-      text: req.body.text,
+      text: req.body.postText,
       name: user.name,
     });
 
@@ -97,7 +116,7 @@ router.put('/:post_id', auth, async (req, res) => {
   try {
     // Find post by id and update field
     const post = await Post.findByIdAndUpdate(req.params.post_id, {
-      text: req.body.text,
+      text: req.body.postText,
     });
 
     await post.save();
@@ -110,7 +129,7 @@ router.put('/:post_id', auth, async (req, res) => {
 
 // @route       DELETE api/posts/:post_id
 // @desc        Delete post
-// @access      Prviate
+// @access      Private
 router.delete('/:post_id', auth, async (req, res) => {
   try {
     const post = await Post.findByIdAndRemove(req.params.post_id);
@@ -143,7 +162,7 @@ router.put('/like/:post_id', auth, async (req, res) => {
     post.likes.unshift({ user: req.user.id });
 
     await post.save();
-    res.json(post.likes);
+    res.json(post);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
@@ -173,7 +192,7 @@ router.put('/unlike/:post_id', auth, async (req, res) => {
     post.likes.splice(removeIndex, 1);
 
     await post.save();
-    res.json(post.likes);
+    res.json(post);
   } catch (err) {
     console.error(err);
     res.status(500).send('Server Error');
@@ -202,7 +221,7 @@ router.post('/comment/:post_id', auth, async (req, res) => {
 
     post.comments.unshift(newComment);
     await post.save();
-    res.json(post.comments);
+    res.json(post);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
@@ -243,7 +262,7 @@ router.delete('/comment/:post_id/:comment_id', auth, async (req, res) => {
     post.comments.splice(removeIndex, 1);
 
     await post.save();
-    res.json(post.comments);
+    res.json(post);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');

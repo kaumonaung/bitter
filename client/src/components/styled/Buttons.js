@@ -63,3 +63,38 @@ export const StyledDangerButton = styled(Button)`
     background-color: #8e0000;
   }
 `;
+
+export const WeakDangerButton = styled(Button)`
+  margin-top: ${(props) => (props.$mT ? '1rem' : '0')};
+  margin-right: ${(props) => (props.$mR ? '1rem' : '0')};
+  margin-bottom: ${(props) => (props.$mB ? '1rem' : '0')};
+  margin-left: ${(props) => (props.$mL ? '1rem' : '0')};
+
+  color: #c62828;
+  &:hover {
+    background-color: #ffcdd2;
+  }
+`;
+
+export const StyledIcon = styled.a`
+  text-decoration: none;
+  color: ${(props) => props.theme.palette.grey[600]};
+  font-size: 1.5rem;
+  cursor: pointer;
+
+  margin-left: ${(props) => props.$mL};
+  margin-right: ${(props) => props.$mR};
+
+  &:hover {
+    color: ${(props) => props.theme.palette.primary.main};
+  }
+`;
+
+export const StyledLikedButton = styled.a`
+  text-decoration: none;
+  color: ${(props) => props.theme.palette.primary.main};
+  font-size: 1.5rem;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+`;

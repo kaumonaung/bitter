@@ -1,18 +1,16 @@
 import React, { useEffect } from 'react';
 import { usePostProfile, useGetCurrentProfile } from '../../hooks';
 import { CreateProfileForm } from './CreateProfileForm';
-import { useAuthState, useAuthDispatch, loadUser } from '../../context';
+import { useAuthState, useAuthDispatch } from '../../context';
 import { Redirect } from 'react-router-dom';
 import { MainContainer, GridContainer, FormContainer, H3 } from '../styled';
 
 const CreateProfile = () => {
-  const dispatch = useAuthDispatch();
   const { isAuthenticated } = useAuthState();
   const { data, isLoading, mutate: createProfile } = usePostProfile();
   const { data: profileData } = useGetCurrentProfile();
 
   useEffect(() => {
-    loadUser(dispatch);
     if (isAuthenticated) {
       document.getElementsByClassName(
         'MuiToolbar-root MuiToolbar-regular MuiToolbar-gutters'

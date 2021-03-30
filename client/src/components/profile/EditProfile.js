@@ -16,7 +16,7 @@ import {
 
 const EditProfile = () => {
   const history = useHistory();
-  const { isAuthenticated } = useAuthState();
+  const { isAuthenticated, user } = useAuthState();
   const dispatch = useAuthDispatch();
   const { data: profileData, isLoading } = useGetCurrentProfile();
   const { mutate: editProfile, isSuccess } = usePostProfile();
@@ -57,7 +57,7 @@ const EditProfile = () => {
                 <Flex $row>
                   <Button
                     variant='outlined'
-                    onClick={() => history.push(`profile/${profileData._id}`)}
+                    onClick={() => history.push(`profile/${user._id}`)}
                   >
                     Return to Profile
                   </Button>

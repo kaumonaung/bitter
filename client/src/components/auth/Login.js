@@ -1,15 +1,10 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
 import { LoginForm } from './LoginForm';
-import { useLoginUser } from '../../hooks';
+import { useGetCurrentProfile, useLoginUser } from '../../hooks';
 import { Redirect } from 'react-router-dom';
 import { Alert } from '../layout/Alert';
-import {
-  useAuthDispatch,
-  useAuthState,
-  LOGIN_SUCCESS,
-  loadUser,
-} from '../../context';
+import { useAuthDispatch, useAuthState } from '../../context';
 import {
   MainContainer,
   GridContainer,
@@ -21,20 +16,17 @@ import {
 } from '../styled';
 
 const Login = () => {
-  const authState = useAuthState();
   const dispatch = useAuthDispatch();
-  const { isAuthenticated } = authState;
+  const authState = useAuthState();
 
-  const { data, isError, isLoading, mutate, error, isSuccess } = useLoginUser();
+  const { isError, isLoading, mutate, error, isSuccess } = useLoginUser(
+    dispatch
+  );
 
-  if (isSuccess) {
-    console.log('Successfully logged in');
-    dispatch({ type: LOGIN_SUCCESS, payload: { token: data } });
-    loadUser(dispatch);
-  }
+  const { data } = useGetCurrentProfile(isSuccess);
 
-  if (isAuthenticated) {
-    return <Redirect to='/feed' push />;
+  if (data) {
+    return <Redirect to={`/profile/${authState.user._id}`} push />;
   }
 
   return (
