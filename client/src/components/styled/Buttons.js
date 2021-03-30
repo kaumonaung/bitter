@@ -80,6 +80,9 @@ export const StyledIcon = styled.a`
   text-decoration: none;
   color: ${(props) => props.theme.palette.grey[600]};
   font-size: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+  margin: 0;
   cursor: pointer;
 
   margin-left: ${(props) => props.$mL};
@@ -88,13 +91,4 @@ export const StyledIcon = styled.a`
   &:hover {
     color: ${(props) => props.theme.palette.primary.main};
   }
-`;
-
-export const StyledLikedButton = styled.a`
-  text-decoration: none;
-  color: ${(props) => props.theme.palette.primary.main};
-  font-size: 1.5rem;
-  padding: 0;
-  margin: 0;
-  cursor: pointer;
 `;

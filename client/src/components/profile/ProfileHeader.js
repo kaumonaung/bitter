@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { CreatePostForm } from '../post';
 import { DateTime } from 'luxon';
-import { useCreatePost, useGetCurrentUser } from '../../hooks';
-import { useAuthState, useAuthDispatch } from '../../context';
+import { useCreatePost } from '../../hooks';
+import { CircularProgress } from '@material-ui/core';
 import {
   AiOutlineGlobal,
   AiFillFacebook,
@@ -20,7 +20,6 @@ import {
   StyledButton,
   StyledPaper as MainContainer,
 } from '../styled';
-import { CircularProgress } from '@material-ui/core';
 
 const ProfileHeader = ({ profile, isLoading, user }) => {
   const { isLoading: loadingCreatingPost, mutate } = useCreatePost();

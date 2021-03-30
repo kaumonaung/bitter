@@ -9,7 +9,7 @@ import EditPostForm from './EditPostForm';
 import { useHistory } from 'react-router-dom';
 import {
   StyledPaper as MainContainer,
-  StyledLikedButton as LikeButton,
+  StyledLikedWrapper as LikeWrapper,
   StyledIcon,
   StyledButton as Button,
   WeakDangerButton as DangerButton,
@@ -19,7 +19,7 @@ import {
 } from '../styled';
 
 const PostItem = ({
-  post: { text, name, likes, user, createdAt, updatedAt, _id },
+  post: { text, name, likes, user, createdAt, updatedAt, _id, comments },
   user: loggedInUser,
   query,
 }) => {
@@ -71,22 +71,32 @@ const PostItem = ({
         {text}
       </Text>
       <Flex spaceBetween>
-        <Flex>
-          <div style={{ marginRight: '0.5rem' }}>
+        <Flex center>
+          <div style={{ marginRight: '1rem' }}>
             {likes.some((like) => like.user === loggedInUser._id) ? (
-              <LikeButton>
-                <AiFillHeart onClick={() => dislikePost()} />
-              </LikeButton>
+              <Flex>
+                <LikeWrapper>
+                  <AiFillHeart style={{}} onClick={() => dislikePost()} />
+                </LikeWrapper>
+                <Text $size='1.2rem' $mL='0.5rem' grey>
+                  {likes.length}
+                </Text>
+              </Flex>
             ) : (
-              <StyledIcon>
+              <LikeWrapper>
                 <AiOutlineHeart onClick={() => likePost()} />
-              </StyledIcon>
+              </LikeWrapper>
             )}
           </div>
-          <div style={{ marginLeft: '0.5rem' }}>
-            <StyledIcon onClick={() => history.push(`/posts/${_id}`)}>
-              <FaCommentDots />
-            </StyledIcon>
+          <div style={{ marginLeft: '1rem' }}>
+            <Flex>
+              <StyledIcon onClick={() => history.push(`/posts/${_id}`)}>
+                <FaCommentDots />
+              </StyledIcon>
+              <Text $size='1.2rem' $mL='0.5rem' grey>
+                {comments.length}
+              </Text>
+            </Flex>
           </div>
         </Flex>
         {user === loggedInUser._id && (

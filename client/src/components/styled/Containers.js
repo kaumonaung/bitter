@@ -99,3 +99,13 @@ export const Divider = styled.div`
 
   background-color: ${(props) => props.theme.palette.primary.main};
 `;
+
+export const StyledLikedWrapper = styled.div`
+  text-decoration: none;
+  color: ${(props) => props.theme.palette.primary.main};
+  font-size: 1.5rem;
+  padding: 0;
+  margin: 0;
+  height: 1.5rem;
+  cursor: pointer;
+`;
