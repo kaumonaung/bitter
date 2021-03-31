@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useMutation } from 'react-query';
-import { LOGIN_SUCCESS, loadUser } from '../context';
+import { LOGIN_SUCCESS } from '../context';
 
 const loginUser = async (values) => {
   try {
@@ -17,7 +17,6 @@ export default function useLoginUser(dispatch) {
     onSuccess: (data) => {
       dispatch({ type: LOGIN_SUCCESS });
       localStorage.setItem('token', data);
-      loadUser(dispatch);
     },
   });
 }

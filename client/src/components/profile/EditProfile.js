@@ -1,11 +1,14 @@
-import React, { useEffect } from 'react';
-import { usePostProfile, useGetCurrentProfile } from '../../hooks';
+import React from 'react';
 import { MainContainer, GridContainer } from '../styled';
-import { useAuthState, useAuthDispatch, deleteAccount } from '../../context';
+import { useAuthState, useAuthDispatch } from '../../context';
 import { Redirect, useHistory } from 'react-router-dom';
 import { EditProfileForm } from './EditProfileForm';
 import { CircularProgress } from '@material-ui/core';
-
+import {
+  usePostProfile,
+  useGetCurrentProfile,
+  useDeleteAccount,
+} from '../../hooks';
 import {
   StyledButton as Button,
   StyledDangerButton as DeleteButton,
@@ -20,22 +23,11 @@ const EditProfile = () => {
   const dispatch = useAuthDispatch();
   const { data: profileData, isLoading } = useGetCurrentProfile();
   const { mutate: editProfile, isSuccess } = usePostProfile();
+  const { mutate: deleteAccount } = useDeleteAccount(dispatch);
 
   if (!isLoading && !profileData && !isAuthenticated) {
     return <Redirect to={`/login`} push />;
   }
-
-  const handleDelete = async () => {
-    try {
-      const isDeleted = await deleteAccount(dispatch);
-
-      if (isDeleted) {
-        return history.push('/');
-      }
-    } catch (err) {
-      console.error(err.message);
-    }
-  };
 
   return (
     <>
@@ -65,7 +57,7 @@ const EditProfile = () => {
                   <DeleteButton
                     variant='contained'
                     color='secondary'
-                    onClick={() => handleDelete()}
+                    onClick={() => deleteAccount()}
                     $mL
                   >
                     Delete Account

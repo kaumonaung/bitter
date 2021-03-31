@@ -216,7 +216,7 @@ router.post('/comment/:post_id', auth, async (req, res) => {
     const newComment = {
       user: req.user.id,
       name: user.name,
-      text: req.body.text,
+      text: req.body.postText,
     };
 
     post.comments.unshift(newComment);

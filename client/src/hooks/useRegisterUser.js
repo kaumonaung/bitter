@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useMutation } from 'react-query';
-import { REGISTER_SUCCESS, loadUser } from '../context';
+import { REGISTER_SUCCESS } from '../context';
 
 const registerUser = async (values) => {
   try {
@@ -18,7 +18,6 @@ export default function useRegisterUser(dispatch) {
         type: REGISTER_SUCCESS,
       });
       localStorage.setItem('token', data.token);
-      loadUser(dispatch);
     },
   });
 }

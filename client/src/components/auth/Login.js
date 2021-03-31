@@ -1,7 +1,11 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
 import { LoginForm } from './LoginForm';
-import { useGetCurrentProfile, useLoginUser } from '../../hooks';
+import {
+  useGetCurrentProfile,
+  useLoginUser,
+  useGetCurrentUser,
+} from '../../hooks';
 import { Redirect } from 'react-router-dom';
 import { Alert } from '../layout/Alert';
 import { useAuthDispatch, useAuthState } from '../../context';
@@ -18,12 +22,17 @@ import {
 const Login = () => {
   const dispatch = useAuthDispatch();
   const authState = useAuthState();
+  const {
+    isError,
+    isLoading,
+    mutate,
+    error,
+    isSuccess: loggedIn,
+  } = useLoginUser(dispatch);
 
-  const { isError, isLoading, mutate, error, isSuccess } = useLoginUser(
-    dispatch
-  );
+  const { isSuccess: loadedUser } = useGetCurrentUser(dispatch, loggedIn);
 
-  const { data } = useGetCurrentProfile(isSuccess);
+  const { data } = useGetCurrentProfile(loadedUser);
 
   if (data) {
     return <Redirect to={`/profile/${authState.user._id}`} push />;

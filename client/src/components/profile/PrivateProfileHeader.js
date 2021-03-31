@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { CreatePostForm } from '../post';
 import { DateTime } from 'luxon';
+import { useCreatePost } from '../../hooks';
 import { CircularProgress } from '@material-ui/core';
 import {
   AiOutlineGlobal,
@@ -15,10 +17,14 @@ import {
   Text,
   ProfileHeading,
   ProfileBox,
+  StyledButton,
   StyledPaper as MainContainer,
 } from '../styled';
 
-const ProfileHeader = ({ profile, isLoading }) => {
+const PrivateProfileHeader = ({ profile, isLoading, user }) => {
+  const { isLoading: loadingCreatingPost, mutate } = useCreatePost();
+  const [showingCreatePost, setShowingCreatePost] = useState(false);
+
   return (
     <MainContainer square={true} elevation={0} variant='outlined' $xs>
       {isLoading ? (
@@ -108,10 +114,33 @@ const ProfileHeader = ({ profile, isLoading }) => {
               )}
             </ProfileBox>
           </Flex>
+
+          {user && user._id === profile.user && (
+            <>
+              {!showingCreatePost && (
+                <StyledButton
+                  variant='contained'
+                  color='primary'
+                  onClick={() => setShowingCreatePost(!showingCreatePost)}
+                >
+                  Create Post
+                </StyledButton>
+              )}
+
+              {showingCreatePost && (
+                <CreatePostForm
+                  showingCreatePost={showingCreatePost}
+                  setShowingCreatePost={setShowingCreatePost}
+                  submitFunc={mutate}
+                  loadingCreatingPost={loadingCreatingPost}
+                />
+              )}
+            </>
+          )}
         </>
       )}
     </MainContainer>
   );
 };
 
-export default ProfileHeader;
+export default PrivateProfileHeader;

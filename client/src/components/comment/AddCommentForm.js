@@ -7,26 +7,25 @@ import {
   StyledFormikTextField as TextField,
 } from '../styled';
 
-const EditPostSchema = Yup.object().shape({
+const AddCommentSchema = Yup.object().shape({
   postText: Yup.string()
-    .min(2, 'Post must be at least 2 characters long.')
-    .max(280, 'Post cannot be longer than 280 characters.'),
+    .min(2, 'Comment must be at least 2 characters long.')
+    .max(280, 'Comment cannot be longer than 280 characters.'),
 });
 
-const EditPostForm = ({
-  showingEditPost,
-  setShowingEditPost,
+const AddCommentForm = ({
+  showingAddComment,
+  setShowingAddComment,
   submitFunc,
-  loadingEditPost,
-  text,
+  loadingAddComment,
 }) => {
   return (
     <Formik
-      initialValues={{ postText: text }}
-      validationSchema={EditPostSchema}
+      initialValues={{ postText: '' }}
+      validationSchema={AddCommentSchema}
       onSubmit={(values) => {
         submitFunc(values);
-        setShowingEditPost(false);
+        setShowingAddComment(false);
       }}
     >
       {
@@ -35,12 +34,13 @@ const EditPostForm = ({
             component={TextField}
             name='postText'
             type='text'
-            label='Edit Post'
+            label='Add Comment'
             multiline
             rows={3}
             variant='outlined'
             disabled={false}
             fullWidth={true}
+            placeholder='Type in the new comment'
             style={{ marginTop: '1.5rem', marginBottom: '1rem' }}
           />
 
@@ -49,7 +49,7 @@ const EditPostForm = ({
             color='primary'
             type='submit'
             startIcon={
-              loadingEditPost && (
+              loadingAddComment && (
                 <CircularProgress
                   size='1.5rem'
                   thickness={5}
@@ -62,13 +62,13 @@ const EditPostForm = ({
             Sumbit
           </Button>
 
-          {showingEditPost && (
+          {showingAddComment && (
             <Button
               variant='outlined'
               color='primary'
               type='submit'
               $mL
-              onClick={() => setShowingEditPost(false)}
+              onClick={() => setShowingAddComment(false)}
             >
               Cancel
             </Button>
@@ -79,4 +79,4 @@ const EditPostForm = ({
   );
 };
 
-export default EditPostForm;
+export default AddCommentForm;

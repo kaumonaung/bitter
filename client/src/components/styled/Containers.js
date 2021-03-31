@@ -77,6 +77,12 @@ export const StyledPaper = styled(Paper)`
   }};
 `;
 
+export const PrimaryColorContainer = styled(Paper)`
+  padding: 2rem;
+  max-width: ${(props) => props.$maxWidth};
+  border-color: ${(props) => props.theme.palette.primary.main};
+`;
+
 export const FormContainer = styled.div`
   display: block;
   max-width: 500px;
@@ -108,4 +114,12 @@ export const StyledLikedWrapper = styled.div`
   margin: 0;
   height: 1.5rem;
   cursor: pointer;
+`;
+
+export const SlimDivider = styled.div`
+  width: 100%;
+  height: 1px;
+  margin: 1rem 0;
+
+  background-color: ${(props) => props.theme.palette.grey[600]};
 `;

@@ -26,7 +26,7 @@ const CreateProfile = () => {
     document.getElementsByClassName(
       'MuiToolbar-root MuiToolbar-regular MuiToolbar-gutters'
     )[0].style.display = 'flex';
-    return <Redirect to={`/profile/${data._id}`} push />;
+    return <Redirect to={`/profile/${data.user}`} push />;
   }
 
   return (

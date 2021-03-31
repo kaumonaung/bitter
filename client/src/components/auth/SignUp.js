@@ -1,6 +1,6 @@
 import React from 'react';
 import { SignUpForm } from './SignUpForm';
-import { useRegisterUser } from '../../hooks';
+import { useRegisterUser, useGetCurrentUser } from '../../hooks';
 import { Redirect } from 'react-router-dom';
 import { Grid } from '@material-ui/core';
 import { Alert } from '../layout/Alert';
@@ -20,11 +20,17 @@ const SignUp = () => {
   const dispatch = useAuthDispatch();
   const { isAuthenticated } = authState;
 
-  const { isError, isLoading, mutate: signUpFunc, error } = useRegisterUser(
-    dispatch
-  );
+  const {
+    isError,
+    isLoading,
+    mutate: signUpFunc,
+    error,
+    isSuccess,
+  } = useRegisterUser(dispatch);
 
-  if (isAuthenticated) {
+  const { isSuccess: loadedUser } = useGetCurrentUser(dispatch, isSuccess);
+
+  if (loadedUser) {
     return <Redirect to='/create-profile' push />;
   }
 

@@ -92,3 +92,15 @@ export const StyledIcon = styled.a`
     color: ${(props) => props.theme.palette.primary.main};
   }
 `;
+
+export const GreyIcon = styled.div`
+  text-decoration: none;
+  color: ${(props) => props.theme.palette.grey[600]};
+  font-size: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+  margin: 0;
+
+  margin-left: ${(props) => props.$mL};
+  margin-right: ${(props) => props.$mR};
+`;

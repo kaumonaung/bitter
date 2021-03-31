@@ -12,6 +12,10 @@ import useLikePost from './useLikePost';
 import useDislikePost from './useDislikePost';
 import useEditPost from './useEditPost';
 import useGetPostById from './useGetPostById';
+import useAddComment from './useAddComment';
+import useDeleteComment from './useDeleteComment';
+import useDeletePost from './useDeletePost';
+import useDeleteAccount from './useDeleteAccount';
 
 export {
   useRegisterUser,
@@ -28,4 +32,8 @@ export {
   useDislikePost,
   useEditPost,
   useGetPostById,
+  useAddComment,
+  useDeleteComment,
+  useDeletePost,
+  useDeleteAccount,
 };

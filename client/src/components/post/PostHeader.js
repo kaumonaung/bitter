@@ -1,41 +1,74 @@
 import React from 'react';
 import { DateTime } from 'luxon';
-import { CircularProgress } from '@material-ui/core';
+import { AiOutlineHeart } from 'react-icons/ai';
+import { FaCommentDots } from 'react-icons/fa';
+import { useHistory } from 'react-router-dom';
 import {
+  PrimaryColorContainer as MainContainer,
+  StyledLikedWrapper as LikeWrapper,
   Flex,
   PostItemAuthor,
-  ProfileName,
   Text,
-  ProfileHeading,
-  ProfileBox,
-  StyledButton,
-  StyledPaper as MainContainer,
+  GreyIcon as StyledIcon,
 } from '../styled';
 
-const PostHeader = ({ isLoading, post: { name, user, createdAt } }) => {
+const PostHeader = ({
+  post: { text, name, likes, user, createdAt, updatedAt, _id, comments },
+}) => {
+  const history = useHistory();
+
   return (
     <MainContainer square={true} elevation={0} variant='outlined' $xs>
-      {isLoading ? (
-        <Flex center>
-          <CircularProgress thickness={5} />
+      <Flex $mB='0.9rem' spaceBetween>
+        <Flex style={{ alignItems: 'center' }}>
+          <PostItemAuthor
+            $size='1rem'
+            $mR='1rem'
+            onClick={() => history.push(`/profile/${user}`)}
+          >
+            {name}
+          </PostItemAuthor>
+          <Text $size='0.9rem'>
+            Posted on {`${DateTime.fromISO(createdAt).toFormat('dd/MM/yyyy')}`}
+          </Text>
         </Flex>
-      ) : (
-        <>
+        {createdAt != updatedAt && (
+          <Text $size='0.9rem' $mR='0.5rem' grey>
+            Edited
+          </Text>
+        )}
+      </Flex>
+      <Text
+        $size='1.2rem'
+        $mB='2rem'
+        $mT='1rem'
+        onClick={() => history.push(`/posts/${_id}`)}
+      >
+        {text}
+      </Text>
+      <Flex spaceBetween>
+        <Flex center>
           <Flex>
-            <PostItemAuthor
-              $size='1rem'
-              $mR='1rem'
-              onClick={() => history.push(`/profile/${user}`)}
-            >
-              {name}
-            </PostItemAuthor>
-            <Text $size='0.9rem'>
-              Posted on{' '}
-              {`${DateTime.fromISO(createdAt).toFormat('dd/MM/yyyy')}`}
+            <LikeWrapper style={{ cursor: 'default' }}>
+              <AiOutlineHeart />
+            </LikeWrapper>
+            <Text $size='1.2rem' $mL='0.5rem' grey>
+              {likes.length}
             </Text>
           </Flex>
-        </>
-      )}
+
+          <div style={{ marginLeft: '1rem' }}>
+            <Flex>
+              <StyledIcon onClick={() => history.push(`/posts/${_id}`)}>
+                <FaCommentDots />
+              </StyledIcon>
+              <Text $size='1.2rem' $mL='0.5rem' grey>
+                {comments.length}
+              </Text>
+            </Flex>
+          </div>
+        </Flex>
+      </Flex>
     </MainContainer>
   );
 };

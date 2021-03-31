@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { GlobalStyle } from './global';
 import { ThemeProvider as MuiThemeProvider } from '@material-ui/core';
 import { ThemeProvider } from 'styled-components';
@@ -7,18 +7,17 @@ import { useTheme } from './theme';
 import { BrowserRouter as Router } from 'react-router-dom';
 import Routes from './config/Routes';
 import Navbar from './components/layout/Navbar';
-
-// State Management
 import { useAuthDispatch } from './context';
-import { loadUser } from './context';
+import { useGetCurrentUser } from './hooks';
 
 export const App = () => {
   const theme = useTheme();
   const dispatch = useAuthDispatch();
+  const { isSuccess } = useGetCurrentUser(dispatch);
 
-  useEffect(() => {
-    loadUser(dispatch);
-  }, [dispatch]);
+  if (isSuccess) {
+    console.log('User loaded');
+  }
 
   return (
     <MuiThemeProvider theme={theme}>
