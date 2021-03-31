@@ -1,24 +1,24 @@
 import { authMutateAxios } from '../config';
 import { useMutation, useQueryClient } from 'react-query';
 
-const createPost = async (values) => {
+export default function useCreatePost(query) {
+  const queryClient = useQueryClient();
   const authAxios = authMutateAxios();
 
-  try {
-    const res = await authAxios.post('/api/posts', values);
-    return res;
-  } catch (err) {
-    console.error(err.message);
-    throw err.response.data.message;
-  }
-};
-
-export default function useCreatePost() {
-  const queryClient = useQueryClient();
-
-  return useMutation(createPost, {
-    onSuccess: () => {
-      queryClient.invalidateQueries('userPosts');
+  return useMutation(
+    async (values) => {
+      try {
+        const res = await authAxios.post('/api/posts', values);
+        return res;
+      } catch (err) {
+        console.error(err.message);
+        throw err.response.data.message;
+      }
     },
-  });
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(query);
+      },
+    }
+  );
 }

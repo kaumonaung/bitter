@@ -13,11 +13,7 @@ import { useGetCurrentUser } from './hooks';
 export const App = () => {
   const theme = useTheme();
   const dispatch = useAuthDispatch();
-  const { isSuccess } = useGetCurrentUser(dispatch);
-
-  if (isSuccess) {
-    console.log('User loaded');
-  }
+  const { data } = useGetCurrentUser(dispatch);
 
   return (
     <MuiThemeProvider theme={theme}>

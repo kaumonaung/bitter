@@ -1,8 +1,34 @@
-import React, { useRef } from 'react';
-import { useGetFeed, useIntersectionObserver } from '../../hooks';
+import React, { useRef, useState } from 'react';
+import { CircularProgress } from '@material-ui/core';
+import { useAuthDispatch } from '../../context';
+import { CreatePostForm } from '../post';
+import { useHistory } from 'react-router-dom';
+import { PrivatePostItem, PostItem } from '../post/';
+import {
+  useGetFeed,
+  useIntersectionObserver,
+  useGetCurrentUser,
+  useCreatePost,
+  useGetCurrentProfile,
+} from '../../hooks';
+import {
+  GridContainer,
+  FeedPrimaryBtn as PrimaryButton,
+  FeedSecondaryBtn as SecondaryButton,
+  FeedHeader as Header,
+  H4,
+  Flex,
+} from '../styled';
 
 const Feed = () => {
-  const { data, error, isFetching, fetchNextPage, hasNextPage } = useGetFeed();
+  const dispatch = useAuthDispatch();
+  const [showingCreatePost, setShowingCreatePost] = useState(false);
+  const history = useHistory();
+  const { data: user } = useGetCurrentUser(dispatch);
+  const { mutate: createPost, loadingCreatingPost } = useCreatePost('postFeed');
+  const { data: profile } = useGetCurrentProfile();
+
+  const { data, fetchNextPage, hasNextPage } = useGetFeed();
 
   const scrollObserver = useRef();
 
@@ -13,33 +39,79 @@ const Feed = () => {
   });
 
   return (
-    <>
-      <h1>Infinite Loading</h1>
-      {isFetching && 'Loading'}
-      {error && <p>{error.message}</p>}
-      <div>
-        {data &&
-          data.pages.map((page, index) => (
-            <div key={index} style={{ height: '100%' }}>
-              {page.results.map((post) => (
-                <p
-                  style={{
-                    border: '1px solid gray',
-                    borderRadius: '5px',
-                    padding: '10rem 1rem',
-                    background: `hsla(${post._id * 30}, 60%, 80%, 1)`,
-                  }}
-                  key={post._id}
-                >
-                  {post.text}
-                </p>
-              ))}
+    <GridContainer container containerdirection='column' justify='center'>
+      <GridContainer container item direction='column' $maxWidth='600px'>
+        <Header square={true} elevation={0} variant='outlined' $sm $img>
+          <H4>See what everyone is complaining about</H4>
+          {user && (
+            <>
+              <Flex $mT='2rem'>
+                {!showingCreatePost && (
+                  <PrimaryButton
+                    variant='contained'
+                    $mR
+                    onClick={() => setShowingCreatePost(!showingCreatePost)}
+                  >
+                    Add Post
+                  </PrimaryButton>
+                )}
+
+                {profile && !showingCreatePost && (
+                  <SecondaryButton
+                    variant='outlined'
+                    color='primary'
+                    $mL
+                    onClick={() => history.push(`/profile/${user._id}`)}
+                  >
+                    My Profile
+                  </SecondaryButton>
+                )}
+              </Flex>
+            </>
+          )}
+        </Header>
+
+        <>
+          {showingCreatePost && (
+            <div style={{ paddingTop: '3rem', paddingBottom: '2rem' }}>
+              <CreatePostForm
+                showingCreatePost={showingCreatePost}
+                setShowingCreatePost={setShowingCreatePost}
+                submitFunc={createPost}
+                loadingCreatingPost={loadingCreatingPost}
+              />
             </div>
-          ))}
-        {!hasNextPage && !isFetching && <p>Nothing more to load</p>}
-        <p ref={scrollObserver}>{hasNextPage && 'Loading...'}</p>
-      </div>
-    </>
+          )}
+          {data &&
+            data.pages.map((page, index) => (
+              <div key={index}>
+                {page.results.map((post) => (
+                  <>
+                    {user ? (
+                      <PrivatePostItem
+                        post={post}
+                        key={post._id}
+                        user={user}
+                        query='postFeed'
+                      />
+                    ) : (
+                      <PostItem post={post} key={post._id} />
+                    )}
+                  </>
+                ))}
+              </div>
+            ))}
+
+          <div ref={scrollObserver} style={{ height: '3rem' }}>
+            {hasNextPage && (
+              <Flex center $vPad='3rem'>
+                <CircularProgress thickness={5} />
+              </Flex>
+            )}
+          </div>
+        </>
+      </GridContainer>
+    </GridContainer>
   );
 };
 

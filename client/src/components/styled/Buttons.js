@@ -104,3 +104,33 @@ export const GreyIcon = styled.div`
   margin-left: ${(props) => props.$mL};
   margin-right: ${(props) => props.$mR};
 `;
+
+export const FeedSecondaryBtn = styled(Button)`
+  margin-top: ${(props) => (props.$mT ? '1rem' : '0')};
+  margin-right: ${(props) => (props.$mR ? '1rem' : '0')};
+  margin-bottom: ${(props) => (props.$mB ? '1rem' : '0')};
+  margin-left: ${(props) => (props.$mL ? '1rem' : '0')};
+
+  border-color: #fff;
+  color: #fff;
+
+  &:hover {
+    background-color: ${(props) => props.theme.palette.grey[200]};
+    color: ${(props) => props.theme.palette.primary.main};
+    border-color: ${(props) => props.theme.palette.grey[200]};
+  }
+`;
+
+export const FeedPrimaryBtn = styled(Button)`
+  margin-top: ${(props) => (props.$mT ? '1rem' : '0')};
+  margin-right: ${(props) => (props.$mR ? '1rem' : '0')};
+  margin-bottom: ${(props) => (props.$mB ? '1rem' : '0')};
+  margin-left: ${(props) => (props.$mL ? '1rem' : '0')};
+
+  border-color: ${(props) => props.theme.palette.grey[200]};
+  color: ${(props) => props.theme.palette.primary.main};
+
+  &:hover {
+    background-color: ${(props) => props.theme.palette.grey[400]};
+  }
+`;

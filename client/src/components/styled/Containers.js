@@ -40,6 +40,12 @@ export const MainContainer = styled.div`
   background-image: ${(props) => props.$img && `url(${backgroundImg})`};
 `;
 
+export const FeedHeader = styled(Paper)`
+  padding: 2rem;
+  width: 100%;
+  background-image: ${(props) => props.$img && `url(${backgroundImg})`};
+`;
+
 export const GridContainer = styled(Grid)`
   height: 100%;
   max-width: ${(props) => props.$maxWidth};

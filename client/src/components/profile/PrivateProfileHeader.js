@@ -22,7 +22,7 @@ import {
 } from '../styled';
 
 const PrivateProfileHeader = ({ profile, isLoading, user }) => {
-  const { isLoading: loadingCreatingPost, mutate } = useCreatePost();
+  const { isLoading: loadingCreatingPost, mutate } = useCreatePost('userPosts');
   const [showingCreatePost, setShowingCreatePost] = useState(false);
 
   return (
