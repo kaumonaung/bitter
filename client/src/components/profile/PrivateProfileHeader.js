@@ -19,6 +19,7 @@ import {
   ProfileBox,
   StyledButton,
   StyledPaper as MainContainer,
+  SlimDivider,
 } from '../styled';
 
 const PrivateProfileHeader = ({ profile, isLoading, user }) => {
@@ -35,7 +36,7 @@ const PrivateProfileHeader = ({ profile, isLoading, user }) => {
         <>
           <ProfileName>{profile.name}</ProfileName>
           <Flex>
-            <ProfileBox $vPad='0.5rem' $mR='1rem'>
+            <ProfileBox $vPad='0.5rem' $mR='2.5rem'>
               <ProfileHeading>Location</ProfileHeading>
               <Text $size='1rem'>
                 {profile.location
@@ -44,12 +45,11 @@ const PrivateProfileHeader = ({ profile, isLoading, user }) => {
               </Text>
             </ProfileBox>
 
-            <ProfileBox $vPad='0.5rem' $mL='1rem'>
+            <ProfileBox $vPad='0.5rem' $mL='2.5rem'>
               <ProfileHeading>Birthday</ProfileHeading>
               <Text $size='1rem'>
-                Born{' '}
-                {`${DateTime.fromISO(profile.birthday).toFormat(
-                  'dd MMMM, yyyy'
+                {`${DateTime.fromISO(profile.birthday).toLocaleString(
+                  DateTime.DATE_FULL
                 )}`}
               </Text>
             </ProfileBox>
@@ -60,7 +60,7 @@ const PrivateProfileHeader = ({ profile, isLoading, user }) => {
             <Text $size='1rem'>{profile.bio ? profile.bio : 'No bio'}</Text>
           </ProfileBox>
 
-          <Flex $vPad='0.5rem'>
+          <Flex $vPad='0.5rem' $mB='1rem'>
             <ProfileBox>
               <ProfileHeading>Website & Social Links</ProfileHeading>
               {profile.website && (
@@ -128,12 +128,17 @@ const PrivateProfileHeader = ({ profile, isLoading, user }) => {
               )}
 
               {showingCreatePost && (
-                <CreatePostForm
-                  showingCreatePost={showingCreatePost}
-                  setShowingCreatePost={setShowingCreatePost}
-                  submitFunc={mutate}
-                  loadingCreatingPost={loadingCreatingPost}
-                />
+                <Flex column $vPad='1rem'>
+                  <Text $bold $size='1rem' $mB='1rem'>
+                    Create Post
+                  </Text>
+                  <CreatePostForm
+                    showingCreatePost={showingCreatePost}
+                    setShowingCreatePost={setShowingCreatePost}
+                    submitFunc={mutate}
+                    loadingCreatingPost={loadingCreatingPost}
+                  />
+                </Flex>
               )}
             </>
           )}

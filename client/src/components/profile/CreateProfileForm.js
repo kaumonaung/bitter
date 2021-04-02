@@ -49,6 +49,7 @@ export const CreateProfileForm = ({ createProfileFunc, isLoading }) => {
             type='text'
             label='Biography'
             fullWidth={true}
+            variant='outlined'
             multiline
             $mB='1rem'
             disabled={false}

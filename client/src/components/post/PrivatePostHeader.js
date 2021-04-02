@@ -5,6 +5,7 @@ import { FaCommentDots } from 'react-icons/fa';
 import EditPostForm from './EditPostForm';
 import { useHistory } from 'react-router-dom';
 import AddCommentForm from '../comment/AddCommentForm';
+import { CircularProgress } from '@material-ui/core';
 import {
   useLikePost,
   useDislikePost,
@@ -28,6 +29,7 @@ const PrivatePostHeader = ({
   post: { text, name, likes, user, createdAt, updatedAt, _id, comments },
   user: loggedInUser,
   query,
+  isLoading,
 }) => {
   const history = useHistory();
   const [showingEditPost, setShowingEditPost] = useState(false);
@@ -51,97 +53,113 @@ const PrivatePostHeader = ({
 
   return (
     <MainContainer square={true} elevation={0} variant='outlined' $xs>
-      <Flex $mB='0.9rem' spaceBetween>
-        <Flex style={{ alignItems: 'center' }}>
-          <PostItemAuthor
-            $size='1rem'
-            $mR='1rem'
-            onClick={() => history.push(`/profile/${user}`)}
-          >
-            {name}
-          </PostItemAuthor>
-          <Text $size='0.9rem'>
-            Posted on {`${DateTime.fromISO(createdAt).toFormat('dd/MM/yyyy')}`}
-          </Text>
-        </Flex>
-        {createdAt != updatedAt && (
-          <Text $size='0.9rem' $mR='0.5rem' grey>
-            Edited
-          </Text>
-        )}
-      </Flex>
-      <Text $size='1.2rem' $mB='2rem' $mT='1rem'>
-        {text}
-      </Text>
-      <Flex spaceBetween>
+      {isLoading ? (
         <Flex center>
-          <div style={{ marginRight: '1rem' }}>
-            {likes.some((like) => like.user === loggedInUser._id) ? (
-              <Flex>
-                <LikeWrapper>
-                  <AiFillHeart style={{}} onClick={() => dislikePost()} />
-                </LikeWrapper>
-                <Text $size='1.2rem' $mL='0.5rem' grey>
-                  {likes.length}
-                </Text>
-              </Flex>
-            ) : (
-              <Flex>
-                <LikeWrapper>
-                  <AiOutlineHeart onClick={() => likePost()} />
-                </LikeWrapper>
-                <Text $size='1.2rem' $mL='0.5rem' grey>
-                  {likes.length}
-                </Text>
-              </Flex>
-            )}
-          </div>
-          <div style={{ marginLeft: '1rem' }}>
-            <Flex>
-              <StyledIcon>
-                <FaCommentDots />
-              </StyledIcon>
-              <Text $size='1.2rem' $mL='0.5rem' grey>
-                {comments.length}
+          <CircularProgress thickness={5} />
+        </Flex>
+      ) : (
+        <>
+          <Flex $mB='0.9rem' spaceBetween>
+            <Flex style={{ alignItems: 'center' }}>
+              <PostItemAuthor
+                $size='1rem'
+                $mR='1rem'
+                onClick={() => history.push(`/profile/${user}`)}
+              >
+                {name}
+              </PostItemAuthor>
+              <Text $size='0.9rem'>
+                Posted on{' '}
+                {`${DateTime.fromISO(createdAt).toLocaleString(
+                  DateTime.DATE_FULL
+                )}`}
               </Text>
             </Flex>
-          </div>
-        </Flex>
-        {user === loggedInUser._id && (
-          <Flex>
-            <Button onClick={() => setShowingEditPost(!showingEditPost)}>
-              Edit
-            </Button>
-            <DangerButton onClick={() => deletePost()}>Delete</DangerButton>
+            {createdAt != updatedAt && (
+              <Text $size='0.9rem' $mR='0.5rem' grey>
+                Edited
+              </Text>
+            )}
           </Flex>
-        )}
-      </Flex>
-      {showingEditPost && (
-        <EditPostForm
-          showingEditPost={showingEditPost}
-          setShowingEditPost={setShowingEditPost}
-          loadingEditPost={loadingEditPost}
-          submitFunc={editPost}
-          text={text}
-        />
-      )}
-      <SlimDivider />
-      {loggedInUser && !showingAddComment && (
-        <Button
-          variant='contained'
-          color='primary'
-          onClick={() => setShowingAddComment(!showingAddComment)}
-        >
-          Add Comment
-        </Button>
-      )}
-      {showingAddComment && (
-        <AddCommentForm
-          showingAddComment={showingAddComment}
-          setShowingAddComment={setShowingAddComment}
-          submitFunc={addComment}
-          loadingAddComment={loadingAddComment}
-        />
+          <Text $size='1.2rem' $mB='2rem' $mT='1rem'>
+            {text}
+          </Text>
+          <Flex spaceBetween>
+            <Flex center>
+              <div style={{ marginRight: '1rem' }}>
+                {likes.some((like) => like.user === loggedInUser._id) ? (
+                  <Flex>
+                    <LikeWrapper>
+                      <AiFillHeart style={{}} onClick={() => dislikePost()} />
+                    </LikeWrapper>
+                    <Text $size='1.2rem' $mL='0.5rem' grey>
+                      {likes.length}
+                    </Text>
+                  </Flex>
+                ) : (
+                  <Flex>
+                    <LikeWrapper>
+                      <AiOutlineHeart onClick={() => likePost()} />
+                    </LikeWrapper>
+                    <Text $size='1.2rem' $mL='0.5rem' grey>
+                      {likes.length}
+                    </Text>
+                  </Flex>
+                )}
+              </div>
+              <div style={{ marginLeft: '1rem' }}>
+                <Flex>
+                  <StyledIcon>
+                    <FaCommentDots />
+                  </StyledIcon>
+                  <Text $size='1.2rem' $mL='0.5rem' grey>
+                    {comments.length}
+                  </Text>
+                </Flex>
+              </div>
+            </Flex>
+            {user === loggedInUser._id && (
+              <Flex>
+                <Button onClick={() => setShowingEditPost(!showingEditPost)}>
+                  Edit
+                </Button>
+                <DangerButton onClick={() => deletePost()}>Delete</DangerButton>
+              </Flex>
+            )}
+          </Flex>
+          {showingEditPost && (
+            <EditPostForm
+              showingEditPost={showingEditPost}
+              setShowingEditPost={setShowingEditPost}
+              loadingEditPost={loadingEditPost}
+              submitFunc={editPost}
+              text={text}
+            />
+          )}
+          <SlimDivider />
+          {loggedInUser && !showingAddComment && (
+            <Button
+              variant='contained'
+              color='primary'
+              onClick={() => setShowingAddComment(!showingAddComment)}
+            >
+              Add Comment
+            </Button>
+          )}
+          {showingAddComment && (
+            <Flex column $vPad='1rem'>
+              <Text $bold $size='1rem' $mB='1rem'>
+                Add Comment
+              </Text>
+              <AddCommentForm
+                showingAddComment={showingAddComment}
+                setShowingAddComment={setShowingAddComment}
+                submitFunc={addComment}
+                loadingAddComment={loadingAddComment}
+              />
+            </Flex>
+          )}
+        </>
       )}
     </MainContainer>
   );

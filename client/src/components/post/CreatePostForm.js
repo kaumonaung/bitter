@@ -34,14 +34,13 @@ const CreatePostForm = ({
             component={TextField}
             name='postText'
             type='text'
-            label='Create Post'
+            label='New Post'
             multiline
             rows={3}
             variant='outlined'
             disabled={false}
             fullWidth={true}
-            placeholder='Type in the new post'
-            style={{ marginTop: '1.5rem', marginBottom: '1rem' }}
+            style={{ marginBottom: '1rem' }}
           />
 
           <Button

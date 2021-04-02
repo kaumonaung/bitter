@@ -29,7 +29,10 @@ const PostItem = ({
             {name}
           </PostItemAuthor>
           <Text $size='0.9rem'>
-            Posted on {`${DateTime.fromISO(createdAt).toFormat('dd/MM/yyyy')}`}
+            Posted on{' '}
+            {`${DateTime.fromISO(createdAt).toLocaleString(
+              DateTime.DATE_FULL
+            )}`}
           </Text>
         </Flex>
         {createdAt != updatedAt && (

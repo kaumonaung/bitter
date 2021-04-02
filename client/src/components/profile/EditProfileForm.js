@@ -5,6 +5,7 @@ import { CircularProgress } from '@material-ui/core';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import { Alert } from '../layout/Alert';
+import { DateTime } from 'luxon';
 import {
   StyledButton as Button,
   StyledFormikTextField as TextField,
@@ -55,6 +56,7 @@ export const EditProfileForm = ({
             type='text'
             label='Biography'
             fullWidth={true}
+            variant='outlined'
             multiline
             $mB='1rem'
             disabled={false}

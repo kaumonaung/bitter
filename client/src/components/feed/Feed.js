@@ -18,6 +18,7 @@ import {
   FeedHeader as Header,
   H4,
   Flex,
+  Text,
 } from '../styled';
 
 const Feed = () => {
@@ -75,14 +76,17 @@ const Feed = () => {
 
         <>
           {showingCreatePost && (
-            <div style={{ paddingTop: '3rem', paddingBottom: '2rem' }}>
+            <Header square={true} elevation={0} variant='outlined' $sm>
+              <Text $bold $size='1rem' $mB='1rem'>
+                Create Post
+              </Text>
               <CreatePostForm
                 showingCreatePost={showingCreatePost}
                 setShowingCreatePost={setShowingCreatePost}
                 submitFunc={createPost}
                 loadingCreatingPost={loadingCreatingPost}
               />
-            </div>
+            </Header>
           )}
           {data &&
             data.pages.map((page, index) => (

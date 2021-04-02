@@ -31,7 +31,8 @@ const Comment = ({
             {name}
           </PostItemAuthor>
           <Text $size='0.9rem'>
-            Posted on {`${DateTime.fromISO(date).toFormat('dd/MM/yyyy')}`}
+            Posted on{' '}
+            {`${DateTime.fromISO(date).toLocaleString(DateTime.DATE_FULL)}`}
           </Text>
         </Flex>
         {user && (

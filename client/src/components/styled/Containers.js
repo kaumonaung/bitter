@@ -125,7 +125,7 @@ export const StyledLikedWrapper = styled.div`
 export const SlimDivider = styled.div`
   width: 100%;
   height: 1px;
-  margin: 1rem 0;
+  margin: 2rem 0;
 
   background-color: ${(props) => props.theme.palette.grey[600]};
 `;

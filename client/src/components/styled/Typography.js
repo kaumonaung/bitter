@@ -189,10 +189,10 @@ export const ProfileName = styled.h1`
 export const ProfileHeading = styled.h3`
   font-size: 1rem;
   font-weight: 700;
-  margin: 0;
 
   margin-left: ${(props) => props.$mL};
   margin-right: ${(props) => props.$mR};
+  margin-bottom: 0.2rem;
 `;
 
 export const PostItemAuthor = styled.h4`
@@ -211,6 +211,7 @@ export const Text = styled.p`
   font-size: ${(props) => props.$size};
   margin: 0;
   white-space: pre-wrap;
+  font-weight: ${(props) => props.$bold && '500'};
 
   margin-left: ${(props) => props.$mL};
   margin-right: ${(props) => props.$mR};
