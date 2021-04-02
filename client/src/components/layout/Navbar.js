@@ -44,6 +44,7 @@ const Navbar = (props) => {
   const handleLogout = () => {
     console.log('Log out');
     queryClient.removeQueries('user', { exact: true });
+    queryClient.removeQueries('profile', { exact: true });
     dispatch({ type: LOGOUT });
     history.push('/');
   };
