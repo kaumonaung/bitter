@@ -1,7 +1,10 @@
 {
   "name": "bitter",
   "version": "1.0.0",
-  "description": "A Twitter clone",
+  "description": "A Twitter clone for sarcastic tweets",
+  "engines": {
+    "node": "15.9.0"
+  },
   "main": "server.js",
   "scripts": {
     "start": "node server",
