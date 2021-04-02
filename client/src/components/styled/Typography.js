@@ -210,6 +210,7 @@ export const PostItemAuthor = styled.h4`
 export const Text = styled.p`
   font-size: ${(props) => props.$size};
   margin: 0;
+  white-space: pre-wrap;
 
   margin-left: ${(props) => props.$mL};
   margin-right: ${(props) => props.$mR};

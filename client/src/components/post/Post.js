@@ -11,6 +11,10 @@ const Post = ({ match }) => {
   const { data: post, isLoading } = useGetPostById(match.params.post_id);
   const { data: user } = useGetCurrentUser(dispatch);
 
+  if (post) {
+    console.log(post);
+  }
+
   return (
     <>
       <GridContainer container containerdirection='column' justify='center'>

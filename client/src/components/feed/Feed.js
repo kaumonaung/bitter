@@ -42,7 +42,9 @@ const Feed = () => {
     <GridContainer container containerdirection='column' justify='center'>
       <GridContainer container item direction='column' $maxWidth='600px'>
         <Header square={true} elevation={0} variant='outlined' $sm $img>
-          <H4>See what everyone is complaining about</H4>
+          <H4 style={{ color: 'white' }}>
+            See what everyone is complaining about
+          </H4>
           {user && (
             <>
               <Flex $mT='2rem'>

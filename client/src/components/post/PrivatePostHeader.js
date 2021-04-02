@@ -70,12 +70,7 @@ const PrivatePostHeader = ({
           </Text>
         )}
       </Flex>
-      <Text
-        $size='1.2rem'
-        $mB='2rem'
-        $mT='1rem'
-        onClick={() => history.push(`/posts/${_id}`)}
-      >
+      <Text $size='1.2rem' $mB='2rem' $mT='1rem'>
         {text}
       </Text>
       <Flex spaceBetween>

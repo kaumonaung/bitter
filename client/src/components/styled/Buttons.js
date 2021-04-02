@@ -129,8 +129,9 @@ export const FeedPrimaryBtn = styled(Button)`
 
   border-color: ${(props) => props.theme.palette.grey[200]};
   color: ${(props) => props.theme.palette.primary.main};
+  background-color: #fff;
 
   &:hover {
-    background-color: ${(props) => props.theme.palette.grey[400]};
+    background-color: ${(props) => props.theme.palette.grey[300]};
   }
 `;
