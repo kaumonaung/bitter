@@ -52,7 +52,7 @@ const Navbar = (props) => {
     <AppBar position='sticky' color='default'>
       <Toolbar>
         <div style={{ flexGrow: 1 }}>
-          <Button onClick={() => handleMenuClick('/')}>
+          <Button onClick={() => handleMenuClick('/feed')}>
             <Flex>
               <StyledLogo src={Logo} alt='Bitter Logo' />
               <Typography variant='h6' component='h2' color='primary'>

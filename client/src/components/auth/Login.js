@@ -1,14 +1,14 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
 import { LoginForm } from './LoginForm';
+import { Redirect } from 'react-router-dom';
+import { Alert } from '../layout/Alert';
+import { useAuthDispatch, useAuthState } from '../../context';
 import {
   useGetCurrentProfile,
   useLoginUser,
   useGetCurrentUser,
 } from '../../hooks';
-import { Redirect } from 'react-router-dom';
-import { Alert } from '../layout/Alert';
-import { useAuthDispatch, useAuthState } from '../../context';
 import {
   MainContainer,
   GridContainer,
