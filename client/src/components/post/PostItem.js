@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { DateTime } from 'luxon';
-import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
+import { AiOutlineHeart } from 'react-icons/ai';
 import { FaCommentDots } from 'react-icons/fa';
 import { useHistory } from 'react-router-dom';
 import {
@@ -13,7 +13,7 @@ import {
 } from '../styled';
 
 const PostItem = ({
-  post: { text, name, likes, user, createdAt, updatedAt, _id, comments },
+  post: { text, name, likes, user, createdAt, _id, comments, edited },
 }) => {
   const history = useHistory();
 
@@ -35,7 +35,7 @@ const PostItem = ({
             )}`}
           </Text>
         </Flex>
-        {createdAt != updatedAt && (
+        {edited === true && (
           <Text $size='0.9rem' $mR='0.5rem' grey>
             Edited
           </Text>

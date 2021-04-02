@@ -37,7 +37,7 @@ const EditPostForm = ({
             type='text'
             label='Edit Post'
             multiline
-            rows={3}
+            rows={5}
             variant='outlined'
             disabled={false}
             fullWidth={true}
@@ -59,7 +59,7 @@ const EditPostForm = ({
             }
             $mR
           >
-            Sumbit
+            Update
           </Button>
 
           {showingEditPost && (

@@ -93,6 +93,19 @@ export const StyledIcon = styled.a`
   }
 `;
 
+export const ProfileIcon = styled.a`
+  text-decoration: none;
+  color: ${(props) => props.theme.palette.primary.main};
+  font-size: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+
+  margin-left: ${(props) => props.$mL};
+  margin-right: ${(props) => props.$mR};
+`;
+
 export const GreyIcon = styled.div`
   text-decoration: none;
   color: ${(props) => props.theme.palette.grey[600]};

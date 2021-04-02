@@ -26,7 +26,7 @@ import {
 } from '../styled';
 
 const PrivatePostHeader = ({
-  post: { text, name, likes, user, createdAt, updatedAt, _id, comments },
+  post: { text, name, likes, user, createdAt, edited, _id, comments },
   user: loggedInUser,
   query,
   isLoading,
@@ -75,7 +75,7 @@ const PrivatePostHeader = ({
                 )}`}
               </Text>
             </Flex>
-            {createdAt != updatedAt && (
+            {edited === true && (
               <Text $size='0.9rem' $mR='0.5rem' grey>
                 Edited
               </Text>
@@ -138,13 +138,24 @@ const PrivatePostHeader = ({
           )}
           <SlimDivider />
           {loggedInUser && !showingAddComment && (
-            <Button
-              variant='contained'
-              color='primary'
-              onClick={() => setShowingAddComment(!showingAddComment)}
-            >
-              Add Comment
-            </Button>
+            <Flex>
+              <Button
+                variant='contained'
+                color='primary'
+                $mR='1rem'
+                onClick={() => setShowingAddComment(!showingAddComment)}
+              >
+                Add Comment
+              </Button>
+              <Button
+                variant='outlined'
+                color='primary'
+                $mL='1rem'
+                onClick={() => history.push(`/profile/${loggedInUser._id}`)}
+              >
+                Back to Profile
+              </Button>
+            </Flex>
           )}
           {showingAddComment && (
             <Flex column $vPad='1rem'>

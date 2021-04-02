@@ -49,6 +49,8 @@ export const FeedHeader = styled(Paper)`
 export const GridContainer = styled(Grid)`
   height: 100%;
   max-width: ${(props) => props.$maxWidth};
+  margin-top: ${(props) => props.$mT};
+  margin-bottom: ${(props) => props.$mB};
 `;
 
 export const GridImage = styled(Grid)`
@@ -109,7 +111,7 @@ export const Divider = styled.div`
   width: 100%;
   height: 3rem;
 
-  background-color: ${(props) => props.theme.palette.primary.main};
+  background-image: ${(props) => props.$img && `url(${backgroundImg})`};
 `;
 
 export const StyledLikedWrapper = styled.div`

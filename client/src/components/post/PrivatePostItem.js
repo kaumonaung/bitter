@@ -24,7 +24,7 @@ import {
 } from '../styled';
 
 const PrivatePostItem = ({
-  post: { text, name, likes, user, createdAt, updatedAt, _id, comments },
+  post: { text, name, likes, user, createdAt, _id, comments, edited },
   user: loggedInUser,
   query,
 }) => {
@@ -57,7 +57,7 @@ const PrivatePostItem = ({
             )}`}
           </Text>
         </Flex>
-        {createdAt != updatedAt && (
+        {edited === true && (
           <Text $size='0.9rem' $mR='0.5rem' grey>
             Edited
           </Text>

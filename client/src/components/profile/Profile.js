@@ -46,7 +46,7 @@ const Profile = ({ match }) => {
             ) : (
               <ProfileHeader profile={profile} isLoading={loadingProfile} />
             )}
-            <Divider />
+            <Divider $img />
           </>
 
           {data &&

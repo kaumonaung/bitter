@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { MdMenu } from 'react-icons/md';
 import { withRouter } from 'react-router-dom';
 import { useAuthState, useAuthDispatch, LOGOUT } from '../../context';
-import { useGetCurrentProfile } from '../../hooks';
 import Logo from '../../img/logo.svg';
 import styled from 'styled-components';
 import { Flex, StyledButton as Button } from '../styled';
 import { useTheme } from '@material-ui/core/styles';
+import { useQueryClient } from 'react-query';
 import {
   AppBar,
   Toolbar,
@@ -25,6 +25,7 @@ const StyledLogo = styled.img`
 const Navbar = (props) => {
   const { isAuthenticated, user } = useAuthState();
   const dispatch = useAuthDispatch();
+  const queryClient = useQueryClient();
   const { history } = props;
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -42,6 +43,7 @@ const Navbar = (props) => {
 
   const handleLogout = () => {
     console.log('Log out');
+    queryClient.removeQueries('user', { exact: true });
     dispatch({ type: LOGOUT });
     history.push('/');
   };

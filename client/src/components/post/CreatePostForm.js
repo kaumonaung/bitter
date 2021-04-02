@@ -36,7 +36,7 @@ const CreatePostForm = ({
             type='text'
             label='New Post'
             multiline
-            rows={3}
+            rows={5}
             variant='outlined'
             disabled={false}
             fullWidth={true}

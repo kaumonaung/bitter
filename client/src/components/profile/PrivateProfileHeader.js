@@ -19,7 +19,6 @@ import {
   ProfileBox,
   StyledButton,
   StyledPaper as MainContainer,
-  SlimDivider,
 } from '../styled';
 
 const PrivateProfileHeader = ({ profile, isLoading, user }) => {
@@ -34,7 +33,9 @@ const PrivateProfileHeader = ({ profile, isLoading, user }) => {
         </Flex>
       ) : (
         <>
-          <ProfileName>{profile.name}</ProfileName>
+          <Flex center>
+            <ProfileName>{profile.name}</ProfileName>
+          </Flex>
           <Flex>
             <ProfileBox $vPad='0.5rem' $mR='2.5rem'>
               <ProfileHeading>Location</ProfileHeading>

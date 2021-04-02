@@ -36,7 +36,7 @@ const AddCommentForm = ({
             type='text'
             label='Comment'
             multiline
-            rows={3}
+            rows={5}
             variant='outlined'
             disabled={false}
             fullWidth={true}

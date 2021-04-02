@@ -11,6 +11,7 @@ import {
   PostItemAuthor,
   Text,
   GreyIcon as StyledIcon,
+  StyledButton as Button,
 } from '../styled';
 
 const PostHeader = ({
@@ -74,6 +75,9 @@ const PostHeader = ({
                 </Flex>
               </div>
             </Flex>
+            <Button color='primary' onClick={() => history.goBack()}>
+              Return
+            </Button>
           </Flex>
         </>
       )}

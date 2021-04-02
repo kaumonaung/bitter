@@ -92,6 +92,7 @@ router.post('/', auth, async (req, res) => {
       user: req.user.id,
       text: req.body.postText,
       name: user.name,
+      edited: false,
     });
 
     // Save new post
@@ -117,6 +118,7 @@ router.put('/:post_id', auth, async (req, res) => {
     // Find post by id and update field
     const post = await Post.findByIdAndUpdate(req.params.post_id, {
       text: req.body.postText,
+      edited: true,
     });
 
     await post.save();

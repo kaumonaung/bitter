@@ -27,7 +27,9 @@ const ProfileHeader = ({ profile, isLoading }) => {
         </Flex>
       ) : (
         <>
-          <ProfileName>{profile.name}</ProfileName>
+          <Flex center>
+            <ProfileName>{profile.name}</ProfileName>
+          </Flex>
           <Flex>
             <ProfileBox $vPad='0.5rem' $mR='2.5rem'>
               <ProfileHeading>Location</ProfileHeading>
