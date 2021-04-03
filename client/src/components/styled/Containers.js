@@ -15,6 +15,8 @@ export const Flex = styled.div`
   margin-top: ${(props) => props.$mT};
   margin-bottom: ${(props) => props.$mB};
 
+  justify-content: ${(props) => props.$content};
+
   ${(props) => {
     if (props.center)
       return `
@@ -31,7 +33,7 @@ export const Flex = styled.div`
         justify-content: space-between;
         align-items: center
       `;
-  }}
+  }};
 `;
 
 export const MainContainer = styled.div`
