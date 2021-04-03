@@ -143,6 +143,7 @@ const PrivatePostHeader = ({
                 variant='contained'
                 color='primary'
                 $mR='1rem'
+                $mT='1rem'
                 onClick={() => setShowingAddComment(!showingAddComment)}
               >
                 Add Comment
@@ -150,10 +151,10 @@ const PrivatePostHeader = ({
               <Button
                 variant='outlined'
                 color='primary'
-                $mL='1rem'
-                onClick={() => history.push(`/profile/${loggedInUser._id}`)}
+                onClick={() => history.goBack()}
+                $mT='1rem'
               >
-                Back to Profile
+                Return
               </Button>
             </Flex>
           )}

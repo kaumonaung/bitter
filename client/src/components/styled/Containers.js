@@ -109,13 +109,6 @@ export const ProfileBox = styled.div`
   margin-right: ${(props) => props.$mR};
 `;
 
-export const Divider = styled.div`
-  width: 100%;
-  height: 3rem;
-
-  background-image: ${(props) => props.$img && `url(${backgroundImg})`};
-`;
-
 export const StyledLikedWrapper = styled.div`
   text-decoration: none;
   color: ${(props) => props.theme.palette.primary.main};
@@ -126,10 +119,17 @@ export const StyledLikedWrapper = styled.div`
   cursor: pointer;
 `;
 
+export const Divider = styled.div`
+  width: 100%;
+  height: 3rem;
+
+  background-image: ${(props) => props.$img && `url(${backgroundImg})`};
+`;
+
 export const SlimDivider = styled.div`
   width: 100%;
   height: 1px;
-  margin: 2rem 0;
+  margin: 2rem 0 1rem 0;
 
   background-color: ${(props) => props.theme.palette.grey[600]};
 `;

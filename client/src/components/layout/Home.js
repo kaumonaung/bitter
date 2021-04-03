@@ -41,7 +41,7 @@ const Home = () => {
           sm={12}
           md={8}
         >
-          <Paper elevation={1} $lg>
+          <Paper elevation={1} $sm>
             <H1 $mB primary>
               Life Is Bitter
             </H1>
