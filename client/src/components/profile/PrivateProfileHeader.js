@@ -125,22 +125,14 @@ const PrivateProfileHeader = ({ profile, isLoading, user }) => {
             )}
           </>
 
-          <Button
-            color='primary'
-            variant='outlined'
-            $mR
-            $mT='0.5rem'
-            onClick={() => history.goBack()}
-          >
-            Return
-          </Button>
-
           {user && user._id === profile.user && (
             <>
               {!showingCreatePost && (
                 <StyledButton
                   variant='contained'
                   color='primary'
+                  $mT='0.5rem'
+                  $mR='1rem'
                   onClick={() => setShowingCreatePost(!showingCreatePost)}
                 >
                   Create Post
@@ -162,6 +154,15 @@ const PrivateProfileHeader = ({ profile, isLoading, user }) => {
               )}
             </>
           )}
+
+          <Button
+            color='primary'
+            variant='outlined'
+            $mT='0.5rem'
+            onClick={() => history.goBack()}
+          >
+            Return
+          </Button>
         </>
       )}
     </MainContainer>
