@@ -3,7 +3,7 @@ import { Button } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
 export const StyledButton = styled(Button)`
-  margin-top: ${(props) => (props.$mT ? '1rem' : '0')};
+  margin-top: ${(props) => props.$mT};
   margin-right: ${(props) => (props.$mR ? '1rem' : '0')};
   margin-bottom: ${(props) => (props.$mB ? '1rem' : '0')};
   margin-left: ${(props) => (props.$mL ? '1rem' : '0')};

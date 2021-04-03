@@ -67,7 +67,7 @@ const ProfileHeader = ({ profile, isLoading }) => {
             !profile.social.linkedin ? (
               <div style={{ display: 'none' }}></div>
             ) : (
-              <Flex $vPad='0.5rem' $mB='1rem'>
+              <Flex $vPad='0.5rem'>
                 <ProfileBox>
                   <ProfileHeading>Website & Social Links</ProfileHeading>
                   {profile.website && (
@@ -122,6 +122,7 @@ const ProfileHeader = ({ profile, isLoading }) => {
           <Button
             color='primary'
             variant='outlined'
+            $mT='0.5rem'
             onClick={() => history.goBack()}
           >
             Return

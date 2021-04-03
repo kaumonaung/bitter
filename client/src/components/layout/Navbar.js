@@ -89,6 +89,7 @@ const Navbar = (props) => {
               open={open}
               onClose={() => setAnchorEl(null)}
             >
+              <MenuItem onClick={() => handleMenuClick('/')}>Home</MenuItem>
               <MenuItem onClick={() => handleMenuClick('/feed')}>Feed</MenuItem>
               {isAuthenticated && (
                 <MenuItem
@@ -123,6 +124,9 @@ const Navbar = (props) => {
           </div>
         ) : (
           <>
+            <Button $mR onClick={() => handleMenuClick('/')}>
+              Home
+            </Button>
             <Button $mR onClick={() => handleMenuClick('/feed')}>
               Feed
             </Button>

@@ -72,7 +72,7 @@ const PrivateProfileHeader = ({ profile, isLoading, user }) => {
             !profile.social.linkedin ? (
               <div style={{ display: 'none' }}></div>
             ) : (
-              <Flex $vPad='0.5rem' $mB='1rem'>
+              <Flex $vPad='0.5rem'>
                 <ProfileBox>
                   <ProfileHeading>Website & Social Links</ProfileHeading>
                   {profile.website && (
@@ -129,6 +129,7 @@ const PrivateProfileHeader = ({ profile, isLoading, user }) => {
             color='primary'
             variant='outlined'
             $mR
+            $mT='0.5rem'
             onClick={() => history.goBack()}
           >
             Return
